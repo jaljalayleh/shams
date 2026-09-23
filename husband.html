@@ -1,1682 +1,1606 @@
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>For You ♡</title>
-
-    <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-
-        body {
-            min-height: 100vh;
-
-            background: #000;
-
-            color: white;
-
-            font-family: Arial, sans-serif;
-
-            overflow-x: hidden;
-        }
-
-
-        /* =========================
-           PASSWORD SCREEN
-        ========================= */
-
-        #password-screen {
-
-            position: fixed;
-
-            inset: 0;
-
-            background: #000;
-
-            display: flex;
-
-            justify-content: center;
-
-            align-items: center;
-
-            z-index: 100;
-        }
-
-
-        .password-box {
-
-            width: 360px;
-
-            max-width: 90%;
-
-            padding: 40px 30px;
-
-            background: #f7b6d2;
-
-            color: #000;
-
-            border-radius: 28px;
-
-            text-align: center;
-
-            box-shadow:
-                0 0 50px rgba(247, 182, 210, 0.25);
-        }
-
-
-        .password-heart {
-
-            font-size: 55px;
-
-            color: #c2185b;
-
-            margin-bottom: 10px;
-        }
-
-
-        .password-box h1 {
-
-            font-family: Georgia, serif;
-
-            font-size: 30px;
-
-            margin-bottom: 12px;
-        }
-
-
-        .password-box p {
-
-            font-size: 14px;
-
-            line-height: 1.5;
-
-            margin-bottom: 25px;
-        }
-
-
-        #password-input {
-
-            width: 100%;
-
-            padding: 14px;
-
-            border: 2px solid transparent;
-
-            border-radius: 30px;
-
-            outline: none;
-
-            text-align: center;
-
-            font-size: 18px;
-
-            letter-spacing: 5px;
-        }
-
-
-        #password-input:focus {
-
-            border-color: #c2185b;
-        }
-
-
-        .password-button {
-
-            margin-top: 15px;
-
-            padding: 13px 30px;
-
-            border: none;
-
-            border-radius: 30px;
-
-            background: #c2185b;
-
-            color: white;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-            transition: 0.3s;
-        }
-
-
-        .password-button:hover {
-
-            background: #000;
-
-            transform: scale(1.05);
-        }
-
-
-        #password-error {
-
-            color: #c2185b;
-
-            font-size: 13px;
-
-            margin-top: 15px;
-
-            min-height: 18px;
-        }
-
-
-        /* =========================
-           MAIN WEBSITE
-        ========================= */
-
-        #main-page {
-
-            display: none;
-
-            min-height: 100vh;
-
-            padding: 60px 30px 100px;
-
-            text-align: center;
-        }
-
-
-        #main-page.show {
-
-            display: block;
-        }
-
-
-        .welcome-heart {
-
-            font-size: 55px;
-
-            color: #f7b6d2;
-
-            margin-bottom: 10px;
-        }
-
-
-        .main-title {
-
-            font-family: Georgia, serif;
-
-            font-size: 42px;
-
-            margin-bottom: 10px;
-        }
-
-
-        .main-subtitle {
-
-            color: #aaa;
-
-            margin-bottom: 55px;
-
-            font-size: 15px;
-        }
-
-
-        /* =========================
-           DOORS
-        ========================= */
-
-        .doors {
-
-            max-width: 1000px;
-
-            margin: 0 auto;
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 30px;
-        }
-
-
-        .door {
-
-            height: 360px;
-
-            background: #f7b6d2;
-
-            border-radius: 18px;
-
-            position: relative;
-
-            cursor: pointer;
-
-            transition: 0.35s ease;
-
-            display: flex;
-
-            flex-direction: column;
-
-            justify-content: center;
-
-            align-items: center;
-
-            color: #000;
-
-            box-shadow:
-                0 0 30px rgba(247, 182, 210, 0.12);
-        }
-
-
-        .door:hover {
-
-            transform:
-                translateY(-10px)
-                scale(1.02);
-
-            background: #c2185b;
-
-            color: white;
-
-            box-shadow:
-                0 0 40px rgba(247, 182, 210, 0.3);
-        }
-
-
-        .door-knob {
-
-            position: absolute;
-
-            right: 35px;
-
-            top: 50%;
-
-            width: 14px;
-
-            height: 14px;
-
-            background: #000;
-
-            border-radius: 50%;
-        }
-
-
-        .door-number {
-
-            font-family: Georgia, serif;
-
-            font-size: 50px;
-
-            margin-bottom: 20px;
-        }
-
-
-        .door-icon {
-
-            font-size: 50px;
-
-            margin-bottom: 20px;
-        }
-
-
-        .door h2 {
-
-            font-family: Georgia, serif;
-
-            font-size: 23px;
-
-            padding: 0 20px;
-        }
-
-
-        .door p {
-
-            font-size: 13px;
-
-            margin-top: 10px;
-
-            padding: 0 25px;
-
-            line-height: 1.5;
-        }
-
-
-        /* =========================
-           CONTENT SECTION
-        ========================= */
-
-        .section {
-
-            display: none;
-
-            max-width: 850px;
-
-            margin: 0 auto;
-
-            text-align: left;
-        }
-
-
-        .section.active {
-
-            display: block;
-        }
-
-
-        .section-header {
-
-            text-align: center;
-
-            margin-bottom: 35px;
-        }
-
-
-        .section-header h2 {
-
-            font-family: Georgia, serif;
-
-            font-size: 36px;
-
-            color: #f7b6d2;
-
-            margin-bottom: 8px;
-        }
-
-
-        .section-header p {
-
-            color: #999;
-
-            font-size: 14px;
-        }
-
-
-        /* =========================
-           ADD BUTTON
-        ========================= */
-
-        .add-button {
-
-            display: block;
-
-            margin: 0 auto 30px;
-
-            padding: 12px 25px;
-
-            border: none;
-
-            border-radius: 30px;
-
-            background: #f7b6d2;
-
-            color: #000;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-            transition: 0.3s;
-        }
-
-
-        .add-button:hover {
-
-            background: #c2185b;
-
-            color: white;
-
-            transform: scale(1.05);
-        }
-
-
-        /* =========================
-           ENTRY CARDS
-        ========================= */
-
-        .entries {
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 18px;
-        }
-
-
-        .entry {
-
-            background: #111;
-
-            border: 1px solid #333;
-
-            border-left: 4px solid #f7b6d2;
-
-            border-radius: 15px;
-
-            padding: 22px;
-
-            position: relative;
-        }
-
-
-        .entry h3 {
-
-            color: #f7b6d2;
-
-            font-family: Georgia, serif;
-
-            font-size: 21px;
-
-            margin-bottom: 10px;
-        }
-
-
-        .entry p {
-
-            color: #ddd;
-
-            line-height: 1.7;
-
-            white-space: pre-wrap;
-        }
-
-
-        .entry-date {
-
-            color: #777;
-
-            font-size: 11px;
-
-            margin-top: 15px;
-        }
-
-
-        .entry-actions {
-
-            display: flex;
-
-            gap: 8px;
-
-            margin-top: 18px;
-        }
-
-
-        .edit-button,
-        .delete-button {
-
-            border: none;
-
-            border-radius: 20px;
-
-            padding: 7px 14px;
-
-            cursor: pointer;
-
-            font-size: 12px;
-
-            transition: 0.2s;
-        }
-
-
-        .edit-button {
-
-            background: #f7b6d2;
-
-            color: #000;
-        }
-
-
-        .delete-button {
-
-            background: #333;
-
-            color: white;
-        }
-
-
-        .edit-button:hover {
-
-            background: #c2185b;
-
-            color: white;
-        }
-
-
-        .delete-button:hover {
-
-            background: #c2185b;
-        }
-
-
-        /* =========================
-           EMPTY MESSAGE
-        ========================= */
-
-        .empty {
-
-            text-align: center;
-
-            color: #777;
-
-            padding: 50px 20px;
-
-            border: 1px dashed #444;
-
-            border-radius: 18px;
-        }
-
-
-        /* =========================
-           MODAL
-        ========================= */
-
-        .modal {
-
-            position: fixed;
-
-            inset: 0;
-
-            background: rgba(0, 0, 0, 0.8);
-
-            display: none;
-
-            justify-content: center;
-
-            align-items: center;
-
-            padding: 20px;
-
-            z-index: 200;
-        }
-
-
-        .modal.show {
-
-            display: flex;
-        }
-
-
-        .modal-box {
-
-            width: 500px;
-
-            max-width: 100%;
-
-            background: #f7b6d2;
-
-            color: #000;
-
-            border-radius: 25px;
-
-            padding: 30px;
-        }
-
-
-        .modal-box h2 {
-
-            font-family: Georgia, serif;
-
-            margin-bottom: 20px;
-
-            text-align: center;
-        }
-
-
-        .modal-box label {
-
-            display: block;
-
-            font-size: 13px;
-
-            font-weight: bold;
-
-            margin-bottom: 6px;
-
-            margin-top: 15px;
-        }
-
-
-        .modal-box input,
-        .modal-box textarea {
-
-            width: 100%;
-
-            padding: 12px;
-
-            border: none;
-
-            border-radius: 12px;
-
-            outline: none;
-
-            font-family: Arial, sans-serif;
-
-            font-size: 14px;
-        }
-
-
-        .modal-box textarea {
-
-            min-height: 160px;
-
-            resize: vertical;
-        }
-
-
-        .modal-buttons {
-
-            display: flex;
-
-            justify-content: center;
-
-            gap: 10px;
-
-            margin-top: 20px;
-        }
-
-
-        .save-button,
-        .cancel-button {
-
-            padding: 11px 22px;
-
-            border: none;
-
-            border-radius: 25px;
-
-            cursor: pointer;
-
-            font-weight: bold;
-        }
-
-
-        .save-button {
-
-            background: #c2185b;
-
-            color: white;
-        }
-
-
-        .cancel-button {
-
-            background: #000;
-
-            color: white;
-        }
-
-
-        .save-button:hover,
-        .cancel-button:hover {
-
-            transform: scale(1.05);
-        }
-
-
-        /* =========================
-           BACK BUTTON
-        ========================= */
-
-        .back-button {
-
-            display: block;
-
-            margin: 40px auto 0;
-
-            padding: 12px 25px;
-
-            background: #f7b6d2;
-
-            color: #000;
-
-            border: none;
-
-            border-radius: 30px;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-            transition: 0.3s;
-        }
-
-
-        .back-button:hover {
-
-            background: #c2185b;
-
-            color: white;
-
-            transform: scale(1.05);
-        }
-
-
-        /* =========================
-           HOME BUTTON
-        ========================= */
-
-        .home-button {
-
-            position: fixed;
-
-            bottom: 20px;
-
-            left: 20px;
-
-            padding: 10px 20px;
-
-            background: #f7b6d2;
-
-            color: #000;
-
-            border-radius: 30px;
-
-            text-decoration: none;
-
-            font-weight: bold;
-
-            z-index: 50;
-
-            transition: 0.3s;
-        }
-
-
-        .home-button:hover {
-
-            background: #c2185b;
-
-            color: white;
-        }
-
-
-        /* =========================
-           MOBILE
-        ========================= */
-
-        @media (max-width: 800px) {
-
-            .doors {
-
-                grid-template-columns: 1fr;
-
-                max-width: 400px;
-            }
-
-
-            .door {
-
-                height: 280px;
-            }
-
-
-            .main-title {
-
-                font-size: 34px;
-            }
-
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For You ♡</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: #000;
+    color: white;
+    font-family: Arial, sans-serif;
+    overflow-x: hidden;
+}
+
+/* =========================
+   PASSWORD SCREEN
+========================= */
+
+#password-screen {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.password-box {
+    width: 360px;
+    max-width: 90%;
+    padding: 40px 30px;
+    background: #f7b6d2;
+    color: #000;
+    border-radius: 28px;
+    text-align: center;
+    box-shadow: 0 0 50px rgba(247,182,210,0.25);
+}
+
+.password-heart {
+    font-size: 55px;
+    color: #c2185b;
+    margin-bottom: 10px;
+}
+
+.password-box h1 {
+    font-family: Georgia, serif;
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.password-box p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 25px;
+}
+
+#password-input {
+    width: 100%;
+    padding: 14px;
+    border: 2px solid transparent;
+    border-radius: 30px;
+    outline: none;
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 5px;
+}
+
+#password-input:focus {
+    border-color: #c2185b;
+}
+
+.password-button {
+    margin-top: 15px;
+    padding: 13px 30px;
+    border: none;
+    border-radius: 30px;
+    background: #c2185b;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.password-button:hover {
+    background: #000;
+    transform: scale(1.05);
+}
+
+#password-error {
+    color: #c2185b;
+    font-size: 13px;
+    margin-top: 15px;
+    min-height: 18px;
+}
+
+/* =========================
+   MAIN PAGE
+========================= */
+
+#main-page {
+    display: none;
+    min-height: 100vh;
+    padding: 60px 30px 100px;
+    text-align: center;
+}
+
+#main-page.show {
+    display: block;
+}
+
+.welcome-heart {
+    font-size: 55px;
+    color: #f7b6d2;
+    margin-bottom: 10px;
+}
+
+.main-title {
+    font-family: Georgia, serif;
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.main-subtitle {
+    color: #aaa;
+    margin-bottom: 55px;
+    font-size: 15px;
+}
+
+/* =========================
+   DOORS
+========================= */
+
+.doors {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.door {
+    height: 360px;
+    background: #f7b6d2;
+    border-radius: 18px;
+    position: relative;
+    cursor: pointer;
+    transition: 0.35s ease;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: #000;
+
+    box-shadow:
+        0 0 30px rgba(247,182,210,0.12);
+}
+
+.door:hover {
+    transform: translateY(-10px) scale(1.02);
+    background: #c2185b;
+    color: white;
+
+    box-shadow:
+        0 0 40px rgba(247,182,210,0.3);
+}
+
+.door-knob {
+    position: absolute;
+    right: 35px;
+    top: 50%;
+
+    width: 14px;
+    height: 14px;
+
+    background: #000;
+    border-radius: 50%;
+}
+
+.door-number {
+    font-family: Georgia, serif;
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.door-icon {
+    font-size: 50px;
+    margin-bottom: 20px;
+}
+
+.door h2 {
+    font-family: Georgia, serif;
+    font-size: 23px;
+    padding: 0 20px;
+}
+
+.door p {
+    font-size: 13px;
+    margin-top: 10px;
+    padding: 0 25px;
+    line-height: 1.5;
+}
+
+/* =========================
+   CONTENT SECTIONS
+========================= */
+
+.section {
+    display: none;
+    max-width: 850px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.section.active {
+    display: block;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.section-header h2 {
+    font-family: Georgia, serif;
+    font-size: 36px;
+    color: #f7b6d2;
+    margin-bottom: 8px;
+}
+
+.section-header p {
+    color: #999;
+    font-size: 14px;
+}
+
+/* =========================
+   ENTRIES
+========================= */
+
+.entries {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.entry {
+    background: #111;
+
+    border: 1px solid #333;
+    border-left: 4px solid #f7b6d2;
+
+    border-radius: 15px;
+
+    padding: 22px;
+
+    position: relative;
+
+    transition: 0.3s ease;
+}
+
+.entry:hover {
+    transform: translateX(5px);
+
+    border-color: #c2185b;
+
+    box-shadow:
+        0 0 25px rgba(247,182,210,0.08);
+}
+
+.entry h3 {
+    color: #f7b6d2;
+    font-family: Georgia, serif;
+    font-size: 21px;
+    margin-bottom: 10px;
+}
+
+.entry p {
+    color: #ddd;
+    line-height: 1.7;
+    white-space: pre-wrap;
+}
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back-button {
+    display: block;
+
+    margin: 40px auto 0;
+
+    padding: 12px 25px;
+
+    background: #f7b6d2;
+    color: #000;
+
+    border: none;
+    border-radius: 30px;
+
+    font-weight: bold;
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.back-button:hover {
+    background: #c2185b;
+    color: white;
+
+    transform: scale(1.05);
+}
+
+/* =========================
+   HOME BUTTON
+========================= */
+
+.home-button {
+    position: fixed;
+
+    bottom: 20px;
+    left: 20px;
+
+    padding: 10px 20px;
+
+    background: #f7b6d2;
+    color: #000;
+
+    border-radius: 30px;
+
+    text-decoration: none;
+    font-weight: bold;
+
+    z-index: 50;
+
+    transition: 0.3s;
+}
+
+.home-button:hover {
+    background: #c2185b;
+    color: white;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 800px) {
+
+    .doors {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+    }
+
+    .door {
+        height: 280px;
+    }
+
+    .main-title {
+        font-size: 34px;
+    }
+
+    .section-header h2 {
+        font-size: 30px;
+    }
+
+    #main-page {
+        padding: 40px 18px 100px;
+    }
+
+}
+
+</style>
 </head>
-
 
 <body>
 
 
-    <!-- =====================================================
-         PASSWORD SCREEN
-    ====================================================== -->
+<!-- =====================================================
+     PASSWORD SCREEN
+====================================================== -->
 
-    <div id="password-screen">
+<div id="password-screen">
 
-        <div class="password-box">
+    <div class="password-box">
 
-            <div class="password-heart">
-                ♡
-            </div>
-
-            <h1>
-                A little secret...
-            </h1>
-
-            <p>
-                If you found your way here,
-                you probably know the password. 🩷
-            </p>
-
-            <input
-                type="password"
-                id="password-input"
-                placeholder="Password"
-                maxlength="6"
-                onkeydown="handlePasswordKey(event)"
-            >
-
-            <br>
-
-            <button
-                class="password-button"
-                onclick="checkPassword()">
-
-                Enter ♡
-
-            </button>
-
-            <div id="password-error"></div>
-
-        </div>
-
-    </div>
-
-
-    <!-- =====================================================
-         MAIN PAGE
-    ====================================================== -->
-
-    <main id="main-page">
-
-
-        <div class="welcome-heart">
+        <div class="password-heart">
             ♡
         </div>
 
-
-        <h1 class="main-title">
-            Welcome to my little secret
+        <h1>
+            A little secret...
         </h1>
 
-
-        <p class="main-subtitle">
-            There are a few things I wanted you to find.
+        <p>
+            If you found your way here,
+            you probably know the password. 🩷
         </p>
 
+        <input
+            type="password"
+            id="password-input"
+            placeholder="Password"
+            maxlength="6"
+            onkeydown="handlePasswordKey(event)"
+        >
 
-        <!-- =================================================
-             THREE DOORS
-        ================================================== -->
+        <br>
 
-        <div class="doors">
+        <button
+            class="password-button"
+            onclick="checkPassword()">
+
+            Enter ♡
+
+        </button>
+
+        <div id="password-error"></div>
+
+    </div>
+
+</div>
 
 
-            <!-- DOOR 1 -->
+<!-- =====================================================
+     MAIN PAGE
+====================================================== -->
 
-            <div
-                class="door"
-                onclick="openSection('messages')">
+<main id="main-page">
 
-                <div class="door-number">
-                    I
-                </div>
+    <div class="welcome-heart">
+        ♡
+    </div>
 
-                <div class="door-icon">
-                    💌
-                </div>
+    <h1 class="main-title">
+        Welcome to my little secret
+    </h1>
 
-                <h2>
-                    Cute Messages
-                </h2>
+    <p class="main-subtitle">
+        There are a few things I wanted you to find.
+    </p>
 
-                <p>
-                    Little things I wanted you to read.
-                </p>
 
-                <div class="door-knob"></div>
+    <!-- =================================================
+         THREE DOORS
+    ================================================== -->
 
+    <div class="doors">
+
+        <!-- DOOR 1 -->
+
+        <div
+            class="door"
+            onclick="openSection('messages')">
+
+            <div class="door-number">
+                I
             </div>
 
-
-            <!-- DOOR 2 -->
-
-            <div
-                class="door"
-                onclick="openSection('love')">
-
-                <div class="door-number">
-                    II
-                </div>
-
-                <div class="door-icon">
-                    🩷
-                </div>
-
-                <h2>
-                    Things I Love About You
-                </h2>
-
-                <p>
-                    All the little things I notice.
-                </p>
-
-                <div class="door-knob"></div>
-
+            <div class="door-icon">
+                💌
             </div>
 
+            <h2>
+                Cute Messages
+            </h2>
 
-            <!-- DOOR 3 -->
+            <p>
+                Little things I wanted you to read.
+            </p>
 
-            <div
-                class="door"
-                onclick="openSection('future')">
-
-                <div class="door-number">
-                    III
-                </div>
-
-                <div class="door-icon">
-                    🌍
-                </div>
-
-                <h2>
-                    Things I Want To Do With You
-                </h2>
-
-                <p>
-                    Places to go, things to experience,
-                    memories to make.
-                </p>
-
-                <div class="door-knob"></div>
-
-            </div>
+            <div class="door-knob"></div>
 
         </div>
 
 
-        <!-- =================================================
-             DOOR 1 CONTENT
-        ================================================== -->
+        <!-- DOOR 2 -->
 
-        <section
-            class="section"
-            id="messages">
+        <div
+            class="door"
+            onclick="openSection('love')">
 
-            <div class="section-header">
-
-                <h2>
-                    Cute Messages 💌
-                </h2>
-
-                <p>
-                    Little pieces of my heart.
-                </p>
-
+            <div class="door-number">
+                II
             </div>
 
-
-            <button
-                class="add-button"
-                onclick="openAddModal('messages')">
-
-                + Add a message
-
-            </button>
-
-
-            <div
-                class="entries"
-                id="messages-entries">
+            <div class="door-icon">
+                🩷
             </div>
 
-
-            <button
-                class="back-button"
-                onclick="backToDoors()">
-
-                ← Back to the doors
-
-            </button>
-
-        </section>
-
-
-        <!-- =================================================
-             DOOR 2 CONTENT
-        ================================================== -->
-
-        <section
-            class="section"
-            id="love">
-
-            <div class="section-header">
-
-                <h2>
-                    Things I Love About You 🩷
-                </h2>
-
-                <p>
-                    The little things that make you you.
-                </p>
-
-            </div>
-
-
-            <button
-                class="add-button"
-                onclick="openAddModal('love')">
-
-                + Add something
-
-            </button>
-
-
-            <div
-                class="entries"
-                id="love-entries">
-            </div>
-
-
-            <button
-                class="back-button"
-                onclick="backToDoors()">
-
-                ← Back to the doors
-
-            </button>
-
-        </section>
-
-
-        <!-- =================================================
-             DOOR 3 CONTENT
-        ================================================== -->
-
-        <section
-            class="section"
-            id="future">
-
-            <div class="section-header">
-
-                <h2>
-                    Things I Want To Do With You 🌍
-                </h2>
-
-                <p>
-                    Places, dreams and memories waiting for us.
-                </p>
-
-            </div>
-
-
-            <button
-                class="add-button"
-                onclick="openAddModal('future')">
-
-                + Add something
-
-            </button>
-
-
-            <div
-                class="entries"
-                id="future-entries">
-            </div>
-
-
-            <button
-                class="back-button"
-                onclick="backToDoors()">
-
-                ← Back to the doors
-
-            </button>
-
-        </section>
-
-
-    </main>
-
-
-    <!-- =====================================================
-         ADD / EDIT MODAL
-    ====================================================== -->
-
-    <div
-        class="modal"
-        id="entry-modal">
-
-        <div class="modal-box">
-
-            <h2 id="modal-title">
-                Add something ♡
+            <h2>
+                Things I Love About You
             </h2>
 
+            <p>
+                All the little things I notice.
+            </p>
 
-            <label>
-                Title
-            </label>
+            <div class="door-knob"></div>
 
-            <input
-                type="text"
-                id="entry-title"
-                placeholder="Give it a little title..."
-            >
+        </div>
 
 
-            <label>
-                Your message
-            </label>
+        <!-- DOOR 3 -->
 
-            <textarea
-                id="entry-text"
-                placeholder="Write whatever you want here..."
-            ></textarea>
+        <div
+            class="door"
+            onclick="openSection('future')">
 
-
-            <div class="modal-buttons">
-
-                <button
-                    class="save-button"
-                    onclick="saveEntry()">
-
-                    Save ♡
-
-                </button>
-
-
-                <button
-                    class="cancel-button"
-                    onclick="closeModal()">
-
-                    Cancel
-
-                </button>
-
+            <div class="door-number">
+                III
             </div>
+
+            <div class="door-icon">
+                🌍
+            </div>
+
+            <h2>
+                Things I Want To Do With You
+            </h2>
+
+            <p>
+                Places to go, things to experience,
+                memories to make.
+            </p>
+
+            <div class="door-knob"></div>
 
         </div>
 
     </div>
 
 
-    <!-- =====================================================
-         HOME
-    ====================================================== -->
+    <!-- =================================================
+         DOOR 1
+    ================================================== -->
 
-    <a
-        href="index.html"
-        class="home-button">
+    <section
+        class="section"
+        id="messages">
 
-        ← Home
+        <div class="section-header">
 
-    </a>
+            <h2>
+                Cute Messages 💌
+            </h2>
 
+            <p>
+                Little pieces of my heart.
+            </p>
 
-    <!-- =====================================================
-         JAVASCRIPT
-    ====================================================== -->
+        </div>
 
-    <script>
+        <div
+            class="entries"
+            id="messages-entries">
+        </div>
 
+        <button
+            class="back-button"
+            onclick="backToDoors()">
 
-        /* =========================
-           PASSWORD
-        ========================= */
+            ← Back to the doors
 
-        const correctPassword = "070844";
+        </button>
 
+    </section>
 
-        function checkPassword() {
 
-            const input =
-                document.getElementById("password-input").value;
+    <!-- =================================================
+         DOOR 2
+    ================================================== -->
 
-            const error =
-                document.getElementById("password-error");
+    <section
+        class="section"
+        id="love">
 
+        <div class="section-header">
 
-            if (input === correctPassword) {
+            <h2>
+                Things I Love About You 🩷
+            </h2>
 
-                document
-                    .getElementById("password-screen")
-                    .style.display = "none";
+            <p>
+                The little things that make you you.
+            </p>
 
-                document
-                    .getElementById("main-page")
-                    .classList.add("show");
+        </div>
 
-            } else {
+        <div
+            class="entries"
+            id="love-entries">
+        </div>
 
-                error.textContent =
-                    "That's not the password ♡ Try again.";
+        <button
+            class="back-button"
+            onclick="backToDoors()">
 
-                document
-                    .getElementById("password-input")
-                    .value = "";
+            ← Back to the doors
 
-            }
+        </button>
 
-        }
+    </section>
 
 
-        function handlePasswordKey(event) {
+    <!-- =================================================
+         DOOR 3
+    ================================================== -->
 
-            if (event.key === "Enter") {
+    <section
+        class="section"
+        id="future">
 
-                checkPassword();
+        <div class="section-header">
 
-            }
+            <h2>
+                Things I Want To Do With You 🌍
+            </h2>
 
-        }
+            <p>
+                Places, dreams and memories waiting for us.
+            </p>
 
+        </div>
 
-        /* =========================
-           DATA
-        ========================= */
+        <div
+            class="entries"
+            id="future-entries">
+        </div>
 
-        let entries = {
+        <button
+            class="back-button"
+            onclick="backToDoors()">
 
-            messages: [
-                {
-                    title: "A little hello ♡",
-                    text: "This is where your first message can go."
-                }
-            ],
+            ← Back to the doors
 
-            love: [
-                {
-                    title: "Something I love",
-                    text: "This is where you can write something you love about him."
-                }
-            ],
+        </button>
 
-            future: [
-                {
-                    title: "Somewhere I want to go",
-                    text: "This is where you can write a place or experience you want to share."
-                }
-            ]
+    </section>
 
-        };
+</main>
 
 
-        /* =========================
-           CURRENT EDIT
-        ========================= */
+<!-- =====================================================
+     HOME
+====================================================== -->
 
-        let currentCategory = null;
+<a
+    href="index.html"
+    class="home-button">
 
-        let editingIndex = null;
+    ← Home
 
+</a>
 
-        /* =========================
-           OPEN DOOR
-        ========================= */
 
-        function openSection(category) {
+<script>
 
-            document
-                .querySelector(".doors")
-                .style.display = "none";
+/* =====================================================
+   PASSWORD
+===================================================== */
 
+const correctPassword = "070844";
 
-            document
-                .querySelectorAll(".section")
-                .forEach(section => {
 
-                    section.classList.remove("active");
+function checkPassword() {
 
-                });
+    const input =
+        document.getElementById("password-input").value;
 
+    const error =
+        document.getElementById("password-error");
 
-            document
-                .getElementById(category)
-                .classList.add("active");
 
+    if (input === correctPassword) {
 
-            renderEntries(category);
+        document
+            .getElementById("password-screen")
+            .style.display = "none";
 
-        }
+        document
+            .getElementById("main-page")
+            .classList.add("show");
 
+    } else {
 
-        /* =========================
-           BACK TO DOORS
-        ========================= */
+        error.textContent =
+            "That's not the password ♡ Try again.";
 
-        function backToDoors() {
+        document
+            .getElementById("password-input")
+            .value = "";
 
-            document
-                .querySelectorAll(".section")
-                .forEach(section => {
+    }
 
-                    section.classList.remove("active");
+}
 
-                });
 
+function handlePasswordKey(event) {
 
-            document
-                .querySelector(".doors")
-                .style.display = "grid";
+    if (event.key === "Enter") {
 
-        }
+        checkPassword();
 
+    }
 
-        /* =========================
-           RENDER ENTRIES
-        ========================= */
+}
 
-        function renderEntries(category) {
 
-            const container =
-                document.getElementById(
-                    category + "-entries"
-                );
+/* =====================================================
+   YOUR CONTENT
+===================================================== */
 
+const entries = {
 
-            container.innerHTML = "";
 
+/* =====================================================
+   DOOR 1
+   50 CUTE MESSAGES
+===================================================== */
 
-            if (entries[category].length === 0) {
+messages: [
 
-                container.innerHTML = `
-                    <div class="empty">
-                        Nothing here yet ♡
-                    </div>
-                `;
+{
+title: "My nugget engineer 🩷",
+text: "Somehow calling you my nugget engineer makes me happier than it probably should."
+},
 
-                return;
+{
+title: "A tiny reminder",
+text: "In case you forgot today: you are very loved."
+},
 
-            }
+{
+title: "Random thought",
+text: "Sometimes I see something cute and immediately think you would probably laugh at it."
+},
 
+{
+title: "Distance",
+text: "We may be far away from each other but you still somehow manage to be part of my everyday life."
+},
 
-            entries[category].forEach(
-                (entry, index) => {
+{
+title: "Your name",
+text: "There are certain names that feel ordinary until one person gives them a completely different meaning."
+},
 
-                    const card =
-                        document.createElement("div");
+{
+title: "A little secret",
+text: "You have become one of my favorite parts of my day."
+},
 
-                    card.className = "entry";
+{
+title: "The funny thing",
+text: "We haven't even met yet and somehow you already feel familiar."
+},
 
+{
+title: "One day",
+text: "One day I want to look at you and think: wow... we really made it from all those calls and messages to actually being here."
+},
 
-                    card.innerHTML = `
+{
+title: "You make me smile",
+text: "Sometimes I don't even realize I'm smiling until I realize I'm thinking about you."
+},
 
-                        <h3>
-                            ${escapeHTML(entry.title)}
-                        </h3>
+{
+title: "For my engineer",
+text: "Please continue being brilliant and adorable at the same time. It is slightly unfair."
+},
 
-                        <p>
-                            ${escapeHTML(entry.text)}
-                        </p>
+{
+title: "A small wish",
+text: "I hope life gives us many ordinary days together because ordinary days with the right person can become the most beautiful ones."
+},
 
-                        <div class="entry-actions">
+{
+title: "Our little world",
+text: "I like that we have our own jokes, conversations, memories and little things that nobody else completely understands."
+},
 
-                            <button
-                                class="edit-button"
-                                onclick="editEntry('${category}', ${index})">
+{
+title: "If you ever wonder",
+text: "Yes, I still get happy when I see your name."
+},
 
-                                Edit
+{
+title: "Good morning",
+text: "I hope your day starts gently and ends with something that makes you smile."
+},
 
-                            </button>
+{
+title: "Good night",
+text: "Sleep well, my nugget. Tomorrow gives us another day to talk and create another little memory."
+},
 
-                            <button
-                                class="delete-button"
-                                onclick="deleteEntry('${category}', ${index})">
+{
+title: "Distance cannot erase this",
+text: "Miles can separate two people physically without making them strangers."
+},
 
-                                Delete
+{
+title: "A future thought",
+text: "I wonder what our first ordinary morning together will feel like."
+},
 
-                            </button>
+{
+title: "You are special",
+text: "Not because you're perfect but because you are you. That is enough."
+},
 
-                        </div>
+{
+title: "Tiny confession",
+text: "I really like having someone I can think about when my day gets quiet."
+},
 
-                    `;
+{
+title: "The calls",
+text: "Some calls feel like minutes even when hours have passed."
+},
 
+{
+title: "Our first meeting",
+text: "I already know that seeing you for the first time is going to feel incredibly surreal."
+},
 
-                    container.appendChild(card);
+{
+title: "A little laugh",
+text: "You somehow manage to make me laugh even when I wasn't planning on smiling."
+},
 
-                }
-            );
+{
+title: "You and me",
+text: "Two people in different places somehow building one little story together."
+},
 
-        }
+{
+title: "Keep this",
+text: "If you ever have a difficult day, remember that there is someone somewhere thinking about you with a smile."
+},
 
+{
+title: "My favorite notification",
+text: "There are notifications and then there is your name appearing on my screen."
+},
 
-        /* =========================
-           ADD ENTRY
-        ========================= */
+{
+title: "No big reason",
+text: "I don't need a reason to miss you. Sometimes I just do."
+},
 
-        function openAddModal(category) {
+{
+title: "The little things",
+text: "I think love is built from tiny moments more than giant ones."
+},
 
-            currentCategory = category;
+{
+title: "A future memory",
+text: "Someday we'll probably laugh about how far away we were at the beginning."
+},
 
-            editingIndex = null;
+{
+title: "You make things lighter",
+text: "Some days feel a little easier simply because I know you're there."
+},
 
+{
+title: "My favorite thought",
+text: "One day the person I only knew through a screen will be standing right in front of me."
+},
 
-            document
-                .getElementById("modal-title")
-                .textContent =
-                "Add something ♡";
+{
+title: "A promise to the future",
+text: "I hope we keep choosing kindness, patience and each other as life changes around us."
+},
 
+{
+title: "You are home",
+text: "Sometimes home isn't a place. Sometimes it is the person you feel safe talking to."
+},
 
-            document
-                .getElementById("entry-title")
-                .value = "";
+{
+title: "Little happiness",
+text: "You have become one of those little things that can instantly make my mood better."
+},
 
+{
+title: "If I could",
+text: "If I could send you one thing through the screen right now it would probably be a giant hug."
+},
 
-            document
-                .getElementById("entry-text")
-                .value = "";
+{
+title: "Our story",
+text: "I like that our story is still being written."
+},
 
+{
+title: "The beginning",
+text: "Maybe someday we'll look back at these messages and realize they were the beginning of something beautiful."
+},
 
-            document
-                .getElementById("entry-modal")
-                .classList.add("show");
+{
+title: "You deserve softness",
+text: "I hope life is gentle with you and gives you reasons to smile often."
+},
 
-        }
+{
+title: "My silly thought",
+text: "I wonder how many times we've both looked at the same moon without knowing it."
+},
 
+{
+title: "One day soon",
+text: "I want to replace goodnight messages with actually saying goodnight while you're right there."
+},
 
-        /* =========================
-           EDIT ENTRY
-        ========================= */
+{
+title: "You're my person",
+text: "Out of all the people in all the places, somehow our paths crossed."
+},
 
-        function editEntry(category, index) {
+{
+title: "A quiet kind of happiness",
+text: "There is something beautiful about knowing someone is thinking about you somewhere else in the world."
+},
 
-            currentCategory = category;
+{
+title: "Our future selves",
+text: "I wonder what our future selves would say if they could read these messages."
+},
 
-            editingIndex = index;
+{
+title: "Thank you",
+text: "Thank you for being part of my life and for giving me so many little reasons to smile."
+},
 
+{
+title: "One more thing",
+text: "If I haven't said it enough today: I'm really happy you're here."
+},
 
-            const entry =
-                entries[category][index];
+{
+title: "My nugget",
+text: "You are officially and permanently my nugget engineer. There is no appeal process."
+},
 
+{
+title: "The distance",
+text: "I don't want distance to be the most memorable thing about our story. I want the memories we create to be."
+},
 
-            document
-                .getElementById("modal-title")
-                .textContent =
-                "Edit this ♡";
+{
+title: "Someday",
+text: "Someday we'll have stories that started with 'remember when we were long distance?'"
+},
 
+{
+title: "A little heart",
+text: "Some people enter your life quietly and somehow leave a permanent little mark on it."
+},
 
-            document
-                .getElementById("entry-title")
-                .value =
-                entry.title;
+{
+title: "Before I sleep",
+text: "Sometimes you're one of the last thoughts that crosses my mind before I sleep."
+},
 
+{
+title: "And finally",
+text: "Whatever happens and wherever life takes us, I'm grateful that our paths crossed."
+}
 
-            document
-                .getElementById("entry-text")
-                .value =
-                entry.text;
+],
 
 
-            document
-                .getElementById("entry-modal")
-                .classList.add("show");
+/* =====================================================
+   DOOR 2
+   THINGS I LOVE ABOUT HIM
+===================================================== */
 
-        }
-
-
-        /* =========================
-           SAVE ENTRY
-        ========================= */
-
-        function saveEntry() {
-
-            const title =
-                document
-                    .getElementById("entry-title")
-                    .value
-                    .trim();
-
-
-            const text =
-                document
-                    .getElementById("entry-text")
-                    .value
-                    .trim();
-
-
-            if (!title || !text) {
-
-                alert(
-                    "Please write something first ♡"
-                );
-
-                return;
-
-            }
-
-
-            const newEntry = {
-
-                title: title,
-
-                text: text
-
-            };
-
-
-            if (editingIndex === null) {
-
-                entries[currentCategory]
-                    .push(newEntry);
-
-            } else {
-
-                entries[currentCategory]
-                    [editingIndex] = newEntry;
-
-            }
-
-
-            saveToBrowser();
-
-
-            closeModal();
-
-
-            renderEntries(currentCategory);
-
-        }
-
-
-        /* =========================
-           DELETE ENTRY
-        ========================= */
-
-        function deleteEntry(category, index) {
-
-            const answer =
-                confirm(
-                    "Delete this entry?"
-                );
-
-
-            if (!answer) {
-
-                return;
-
-            }
-
-
-            entries[category]
-                .splice(index, 1);
-
-
-            saveToBrowser();
-
-
-            renderEntries(category);
-
-        }
-
-
-        /* =========================
-           CLOSE MODAL
-        ========================= */
-
-        function closeModal() {
-
-            document
-                .getElementById("entry-modal")
-                .classList.remove("show");
-
-        }
-
-
-        /* =========================
-           SAVE TO BROWSER
-        ========================= */
-
-        function saveToBrowser() {
-
-            localStorage.setItem(
-                "husbandWebsiteEntries",
-                JSON.stringify(entries)
-            );
-
-        }
-
-
-        /* =========================
-           LOAD FROM BROWSER
-        ========================= */
-
-        function loadFromBrowser() {
-
-            const saved =
-                localStorage.getItem(
-                    "husbandWebsiteEntries"
-                );
-
-
-            if (saved) {
-
-                entries =
-                    JSON.parse(saved);
-
-            }
-
-        }
-
-
-        /* =========================
-           SECURITY
-        ========================= */
-
-        function escapeHTML(text) {
-
-            return text
-                .replace(/&/g, "&amp;")
-                .replace(/</g, "&lt;")
-                .replace(/>/g, "&gt;")
-                .replace(/"/g, "&quot;")
-                .replace(/'/g, "&#039;");
-
-        }
-
-
-        /* =========================
-           START
-        ========================= */
-
-        loadFromBrowser();
-
-
-    </script>
-
+love: [
+
+{
+title: "Your personality",
+text: "I love the person you are when you're completely yourself."
+},
+
+{
+title: "Your smile",
+text: "I love knowing that somewhere behind a screen there is a smile that can make my entire mood better."
+},
+
+{
+title: "Your voice",
+text: "I love hearing your voice because it makes the distance feel a little smaller."
+},
+
+{
+title: "Your laugh",
+text: "I love your laugh and especially the moments when I accidentally become the reason you're laughing."
+},
+
+{
+title: "Your kindness",
+text: "I love the kindness you show in the little things."
+},
+
+{
+title: "Your patience",
+text: "I love when you are patient with me even when I am being complicated."
+},
+
+{
+title: "Your mind",
+text: "I love the way your brain works and the way you think about things."
+},
+
+{
+title: "My engineer",
+text: "I love that you're my little engineer. Smart, curious and always figuring things out."
+},
+
+{
+title: "Your ambition",
+text: "I love seeing someone who has dreams and actually wants to build something with their life."
+},
+
+{
+title: "Your humor",
+text: "I love your sense of humor and all the random moments that make our conversations fun."
+},
+
+{
+title: "Your attention",
+text: "I love when you remember tiny details I've mentioned."
+},
+
+{
+title: "The way you listen",
+text: "I love feeling heard when I talk to you."
+},
+
+{
+title: "Your honesty",
+text: "I love honesty even when the truth isn't the easiest thing to say."
+},
+
+{
+title: "Your effort",
+text: "I notice the effort you make and I hope you know that it matters."
+},
+
+{
+title: "Your little habits",
+text: "I love the tiny habits that make you uniquely you."
+},
+
+{
+title: "Your random thoughts",
+text: "I love when you randomly tell me something because you thought I would find it interesting."
+},
+
+{
+title: "Your confidence",
+text: "I love the moments when you believe in yourself."
+},
+
+{
+title: "Your softness",
+text: "I love the softer side of you that not everyone gets to see."
+},
+
+{
+title: "Your support",
+text: "I love knowing I can talk to you and feel like someone is actually listening."
+},
+
+{
+title: "Your existence",
+text: "Honestly, sometimes there isn't a complicated reason. I just love that you exist."
+},
+
+{
+title: "Your little reactions",
+text: "I love the tiny reactions you have to things because they make conversations feel alive."
+},
+
+{
+title: "Your curiosity",
+text: "I love that you can be interested in things and want to understand them."
+},
+
+{
+title: "Your dreams",
+text: "I love hearing about the future you imagine for yourself."
+},
+
+{
+title: "Your determination",
+text: "I love when you decide you want something and work toward it."
+},
+
+{
+title: "The way you make me feel",
+text: "I love that talking to you can make an ordinary day feel different."
+},
+
+{
+title: "Your presence",
+text: "I love having you in my life even when you're physically far away."
+},
+
+{
+title: "Your messages",
+text: "I love seeing a message from you appear unexpectedly."
+},
+
+{
+title: "Your good mornings",
+text: "I love the simple feeling of knowing someone thought of me at the beginning of their day."
+},
+
+{
+title: "Your goodnights",
+text: "I love ending the day with a little piece of you."
+},
+
+{
+title: "Your individuality",
+text: "I love that you are not a copy of anyone else."
+},
+
+{
+title: "Your imperfections",
+text: "I love that you're human. You don't have to be perfect to be important to me."
+},
+
+{
+title: "Your growth",
+text: "I love seeing you learn, change and become more of yourself."
+},
+
+{
+title: "Your courage",
+text: "I love the moments when you keep going even when things are difficult."
+},
+
+{
+title: "Your generosity",
+text: "I love the way you give your time and attention to people you care about."
+},
+
+{
+title: "Your energy",
+text: "I love the energy you bring into our conversations."
+},
+
+{
+title: "Your little jokes",
+text: "I love the jokes that would probably sound ridiculous to anyone else but somehow make perfect sense to us."
+},
+
+{
+title: "Your trust",
+text: "I love when you trust me enough to tell me things that matter to you."
+},
+
+{
+title: "Your dreams for life",
+text: "I love hearing you talk about the things you want to accomplish."
+},
+
+{
+title: "Your way of caring",
+text: "I love the little ways you show that you care."
+},
+
+{
+title: "Your uniqueness",
+text: "There are millions of people in the world and somehow there is only one you."
+},
+
+{
+title: "Your calm moments",
+text: "I love the peaceful conversations where neither of us has to perform or pretend."
+},
+
+{
+title: "Your excitement",
+text: "I love seeing you excited about something you care about."
+},
+
+{
+title: "Your little world",
+text: "I love getting to know the parts of your world that I didn't know before you."
+},
+
+{
+title: "Your memories",
+text: "I love hearing your stories because every story teaches me another little piece of who you are."
+},
+
+{
+title: "Your future",
+text: "I love imagining all the things you could become."
+},
+
+{
+title: "Your heart",
+text: "More than anything, I love the heart behind the person I get to know."
+},
+
+{
+title: "Everything that makes you you",
+text: "The big things, the tiny things, the obvious things and the things I haven't discovered yet."
+}
+
+],
+
+
+/* =====================================================
+   DOOR 3
+   THINGS WE CAN DO TOGETHER
+===================================================== */
+
+future: [
+
+{
+title: "Finally meet",
+text: "Meet each other for the first time and have that surreal moment where the person on the screen is suddenly standing right there."
+},
+
+{
+title: "First hug",
+text: "Have our first real hug after all the distance."
+},
+
+{
+title: "First photo together",
+text: "Take an unnecessarily large number of pictures because we waited so long to finally have them."
+},
+
+{
+title: "Watch a sunset",
+text: "Sit somewhere beautiful and watch the sky change colors together."
+},
+
+{
+title: "Watch the sunrise",
+text: "Stay awake talking and then watch the sunrise together."
+},
+
+{
+title: "Movie night",
+text: "Have a cozy movie night with snacks and argue over what we're watching."
+},
+
+{
+title: "Cook together",
+text: "Pick a recipe and attempt to make it together."
+},
+
+{
+title: "Bake something",
+text: "Bake cookies or a cake and pretend the kitchen isn't going to become a disaster."
+},
+
+{
+title: "Go for a walk",
+text: "Take a completely ordinary walk while talking about absolutely everything."
+},
+
+{
+title: "Beach day",
+text: "Spend an entire day at the beach."
+},
+
+{
+title: "Road trip",
+text: "Go on a road trip with music playing and absolutely no rush."
+},
+
+{
+title: "Travel somewhere new",
+text: "Pick a place neither of us has explored and discover it together."
+},
+
+{
+title: "Take silly pictures",
+text: "Take the most ridiculous pictures possible and keep them forever."
+},
+
+{
+title: "Make a playlist",
+text: "Create a playlist that becomes our little soundtrack."
+},
+
+{
+title: "Listen to music together",
+text: "Put on headphones and listen to songs together while talking about why we picked them."
+},
+
+{
+title: "Have a picnic",
+text: "Pack food and sit somewhere peaceful for a slow afternoon."
+},
+
+{
+title: "Go stargazing",
+text: "Find somewhere away from city lights and look at the stars."
+},
+
+{
+title: "Build a blanket fort",
+text: "Make the most unnecessarily elaborate blanket fort possible."
+},
+
+{
+title: "Game night",
+text: "Play games together and discover who gets way too competitive."
+},
+
+{
+title: "Try a new restaurant",
+text: "Find somewhere neither of us has eaten before and try something new."
+},
+
+{
+title: "Coffee date",
+text: "Sit somewhere cozy with drinks and talk for hours."
+},
+
+{
+title: "Bookstore date",
+text: "Walk around a bookstore and pick books for each other."
+},
+
+{
+title: "Museum date",
+text: "Spend an afternoon exploring a museum and discussing the weirdest things we see."
+},
+
+{
+title: "Explore a city",
+text: "Pick a city and spend the day walking around without following a strict plan."
+},
+
+{
+title: "Christmas together",
+text: "Spend a Christmas together and make our own little traditions."
+},
+
+{
+title: "Birthday together",
+text: "Celebrate each other's birthdays in person."
+},
+
+{
+title: "Exchange handwritten letters",
+text: "Write letters to each other and keep them somewhere safe."
+},
+
+{
+title: "Make a memory box",
+text: "Keep little tickets, notes, photographs and tiny reminders from our adventures."
+},
+
+{
+title: "Matching something",
+text: "Get something small and matching that reminds us of each other."
+},
+
+{
+title: "Cook each other's favorite food",
+text: "Learn each other's favorite recipes and make them for one another."
+},
+
+{
+title: "Have a lazy day",
+text: "Spend an entire day doing absolutely nothing productive."
+},
+
+{
+title: "Take a train somewhere",
+text: "Choose a random destination and take a train there just for the adventure."
+},
+
+{
+title: "Go shopping together",
+text: "Walk around stores and give each other opinions on completely unnecessary things."
+},
+
+{
+title: "Try an activity neither of us knows",
+text: "Pick something neither of us has tried and learn it together."
+},
+
+{
+title: "Make a photo album",
+text: "Create a physical album filled with our favorite memories."
+},
+
+{
+title: "Have a cooking competition",
+text: "Choose the same ingredients and see who creates the better meal."
+},
+
+{
+title: "Watch the rain",
+text: "Stay somewhere warm and cozy while it rains outside."
+},
+
+{
+title: "Dance together",
+text: "Put on a song and dance even if neither of us actually knows what we're doing."
+},
+
+{
+title: "Make future plans",
+text: "Sit together and talk about the places we want to see and the life we want to build."
+},
+
+{
+title: "Have a surprise date",
+text: "Take turns planning surprise dates for each other."
+},
+
+{
+title: "Explore nature",
+text: "Go somewhere green and quiet and spend the day outside."
+},
+
+{
+title: "Have a late-night conversation",
+text: "Talk until neither of us knows what time it is anymore."
+},
+
+{
+title: "Make our own tradition",
+text: "Create something small that becomes our thing and nobody else really understands."
+},
+
+{
+title: "Watch fireworks",
+text: "Find somewhere beautiful and watch fireworks together."
+},
+
+{
+title: "Visit an amusement park",
+text: "Spend an entire day riding everything and trying every snack."
+},
+
+{
+title: "Take a spontaneous trip",
+text: "Wake up one day and decide we need a tiny adventure."
+},
+
+{
+title: "Build something together",
+text: "Make something with our own hands and keep it as a reminder of the day."
+},
+
+{
+title: "Have a quiet evening",
+text: "No big plans. Just food, music, conversation and being together."
+},
+
+{
+title: "Create a future bucket list",
+text: "Write down all the things we want to experience together and slowly cross them off."
+},
+
+{
+title: "Look back someday",
+text: "One day sit together and look at all these plans and laugh at how many we actually managed to do."
+}
+
+]
+
+};
+
+
+/* =====================================================
+   OPEN SECTION
+===================================================== */
+
+function openSection(category) {
+
+    document
+        .querySelector(".doors")
+        .style.display = "none";
+
+    document
+        .querySelectorAll(".section")
+        .forEach(section => {
+
+            section.classList.remove("active");
+
+        });
+
+    document
+        .getElementById(category)
+        .classList.add("active");
+
+    renderEntries(category);
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =====================================================
+   BACK TO DOORS
+===================================================== */
+
+function backToDoors() {
+
+    document
+        .querySelectorAll(".section")
+        .forEach(section => {
+
+            section.classList.remove("active");
+
+        });
+
+    document
+        .querySelector(".doors")
+        .style.display = "grid";
+
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+
+}
+
+
+/* =====================================================
+   RENDER CONTENT
+===================================================== */
+
+function renderEntries(category) {
+
+    const container =
+        document.getElementById(
+            category + "-entries"
+        );
+
+    container.innerHTML = "";
+
+
+    entries[category].forEach(entry => {
+
+        const card =
+            document.createElement("div");
+
+        card.className = "entry";
+
+
+        const title =
+            document.createElement("h3");
+
+        title.textContent =
+            entry.title;
+
+
+        const text =
+            document.createElement("p");
+
+        text.textContent =
+            entry.text;
+
+
+        card.appendChild(title);
+        card.appendChild(text);
+
+        container.appendChild(card);
+
+    });
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+</script>
 
 </body>
-
 </html>
