@@ -1,0 +1,259 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Social Media</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #000000;
+            color: white;
+            font-family: Arial, sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            overflow: hidden;
+            position: relative;
+        }
+
+
+        /* FLOATING SOCIAL MEDIA LOGOS */
+
+        .floating-icons {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .icon {
+            position: absolute;
+            font-size: 45px;
+            opacity: 0.12;
+            animation: float 12s infinite linear;
+        }
+
+        .icon:nth-child(1) {
+            left: 10%;
+            top: 15%;
+            animation-duration: 11s;
+        }
+
+        .icon:nth-child(2) {
+            left: 25%;
+            top: 70%;
+            animation-duration: 15s;
+        }
+
+        .icon:nth-child(3) {
+            left: 45%;
+            top: 20%;
+            animation-duration: 13s;
+        }
+
+        .icon:nth-child(4) {
+            left: 65%;
+            top: 75%;
+            animation-duration: 17s;
+        }
+
+        .icon:nth-child(5) {
+            left: 80%;
+            top: 25%;
+            animation-duration: 14s;
+        }
+
+        .icon:nth-child(6) {
+            left: 90%;
+            top: 65%;
+            animation-duration: 12s;
+        }
+
+        .icon:nth-child(7) {
+            left: 55%;
+            top: 50%;
+            animation-duration: 16s;
+        }
+
+        .icon:nth-child(8) {
+            left: 15%;
+            top: 45%;
+            animation-duration: 18s;
+        }
+
+
+        @keyframes float {
+
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            25% {
+                transform: translate(80px, -60px) rotate(90deg);
+            }
+
+            50% {
+                transform: translate(-60px, -120px) rotate(180deg);
+            }
+
+            75% {
+                transform: translate(100px, 50px) rotate(270deg);
+            }
+
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
+        }
+
+
+        /* MAIN CONTENT */
+
+        .content {
+            position: relative;
+            z-index: 2;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            gap: 18px;
+        }
+
+
+        h1 {
+            font-size: 55px;
+            font-weight: 500;
+            letter-spacing: 3px;
+
+            margin-bottom: 35px;
+        }
+
+
+        /* SOCIAL MEDIA BUTTONS */
+
+        .button {
+            width: 240px;
+
+            padding: 15px 25px;
+
+            background-color: #f7b6d2;
+            color: #000000;
+
+            border: none;
+            border-radius: 50px;
+
+            font-size: 18px;
+            font-weight: 600;
+
+            text-align: center;
+            text-decoration: none;
+
+            cursor: pointer;
+
+            transition:
+                background-color 0.25s ease,
+                transform 0.25s ease,
+                color 0.25s ease;
+        }
+
+
+        .button:hover {
+            background-color: #c2185b;
+            color: white;
+
+            transform: scale(1.05);
+        }
+
+
+        /* BACK BUTTON */
+
+        .back {
+            margin-top: 25px;
+
+            background-color: transparent;
+            color: #f7b6d2;
+
+            border: 1px solid #f7b6d2;
+        }
+
+
+        .back:hover {
+            background-color: #c2185b;
+            border-color: #c2185b;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- FLOATING ICONS -->
+
+    <div class="floating-icons">
+        <div class="icon">🩷</div>
+        <div class="icon">🤍</div>
+        <div class="icon">❤️</div>
+        <div class="icon">🩵</div>
+        <div class="icon">💕</div>
+        <div class="icon">💖</div>
+        <div class="icon">💗</div>
+        <div class="icon">💓</div>
+        <div class="icon">💞</div>
+
+    </div>
+
+
+
+    <!-- MAIN CONTENT -->
+
+    <div class="content">
+
+        <h1>Social Media</h1>
+<a href="https://www.instagram.com/j.aljalaileh/?utm_source=ig_web_button_share_sheet/" class="button" target="_blank">
+    Instagram
+</a>
+
+<a href="https://www.threads.com/@j.aljalaileh?igshid=NTc4MTIwNjQ2YQ==" class="button" target="_blank">
+    Threads
+</a>
+
+<a href="https://www.tiktok.com/@j.aljalaileh?is_from_webapp=1&sender_device=pc" class="button" target="_blank">
+    TikTok
+</a>
+
+<a href="https://x.com/jaljalayleh?s=11" class="button" target="_blank">
+    X
+</a>
+
+<a href="https://open.spotify.com/user/sitcp2k1dt07djpphfyrdh90v?si=hNGeZT0-RMGaTofDmArVug&utm_source=copy-link" class="button" target="_blank">
+    Spotify
+</a>
+
+
+        <a href="index.html" class="button back">
+            ← Back
+        </a>
+
+    </div>
+
+
+</body>
+
+</html>

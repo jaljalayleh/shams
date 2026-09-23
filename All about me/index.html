@@ -1,0 +1,540 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Shams</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            min-height: 100vh;
+
+            background-color: #000000;
+
+            color: white;
+
+            font-family: Arial, sans-serif;
+
+            display: flex;
+            flex-direction: column;
+
+            justify-content: center;
+            align-items: center;
+
+            overflow: hidden;
+        }
+
+
+        /* =========================
+           TITLE
+        ========================= */
+
+        h1 {
+            font-size: 60px;
+
+            font-weight: 500;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 50px;
+
+            text-align: center;
+        }
+
+
+        /* =========================
+           MAIN BUTTONS
+        ========================= */
+
+        .buttons {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 18px;
+
+            align-items: center;
+        }
+
+
+        .button {
+            width: 230px;
+
+            padding: 15px 25px;
+
+            background-color: #f7b6d2;
+
+            color: #000000;
+
+            border: none;
+
+            border-radius: 50px;
+
+            font-size: 18px;
+
+            font-weight: 600;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            cursor: pointer;
+
+            transition:
+                background-color 0.25s ease,
+                transform 0.25s ease,
+                color 0.25s ease;
+        }
+
+
+        .button:hover {
+            background-color: #c2185b;
+
+            color: white;
+
+            transform: scale(1.05);
+        }
+
+
+        /* =========================
+           SECRET HEART
+        ========================= */
+
+        .secret-heart {
+            position: fixed;
+
+            right: 35px;
+
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            width: 55px;
+
+            height: 55px;
+
+            background-color: #f7b6d2;
+
+            color: #c2185b;
+
+            border: none;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-size: 30px;
+
+            cursor: pointer;
+
+            transition: 0.3s ease;
+
+            box-shadow:
+                0 0 20px rgba(247, 182, 210, 0.25);
+
+            z-index: 5;
+        }
+
+
+        .secret-heart:hover {
+            background-color: #c2185b;
+
+            color: white;
+
+            transform: translateY(-50%) scale(1.12);
+
+            box-shadow:
+                0 0 30px rgba(247, 182, 210, 0.55);
+        }
+
+
+        /* =========================
+           DARK OVERLAY
+        ========================= */
+
+        .overlay {
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.7);
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition: 0.3s ease;
+
+            z-index: 10;
+        }
+
+
+        .overlay.show {
+            opacity: 1;
+
+            pointer-events: auto;
+        }
+
+
+        /* =========================
+           HUSBAND MESSAGE
+        ========================= */
+
+        .husband-message {
+            position: fixed;
+
+            top: 50%;
+
+            left: 50%;
+
+            transform:
+                translate(-50%, -50%)
+                scale(0.8);
+
+            width: 360px;
+
+            padding: 35px 30px;
+
+            background-color: #f7b6d2;
+
+            color: #000000;
+
+            border-radius: 25px;
+
+            text-align: center;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            transition: 0.35s ease;
+
+            box-shadow:
+                0 0 50px rgba(247, 182, 210, 0.35);
+
+            z-index: 11;
+        }
+
+
+        .husband-message.show {
+            opacity: 1;
+
+            pointer-events: auto;
+
+            transform:
+                translate(-50%, -50%)
+                scale(1);
+        }
+
+
+        /* =========================
+           LITTLE HEART INSIDE
+        ========================= */
+
+        .little-heart {
+            font-size: 38px;
+
+            color: #c2185b;
+
+            margin-bottom: 8px;
+        }
+
+
+        /* =========================
+           MESSAGE TITLE
+        ========================= */
+
+        .husband-message h2 {
+            font-family: Georgia, serif;
+
+            font-size: 28px;
+
+            margin-bottom: 15px;
+        }
+
+
+        /* =========================
+           MESSAGE TEXT
+        ========================= */
+
+        .husband-message p {
+            font-size: 16px;
+
+            line-height: 1.6;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================
+           BUTTON TO HUSBAND PAGE
+        ========================= */
+
+        .husband-button {
+            display: inline-block;
+
+            padding: 13px 28px;
+
+            background-color: #c2185b;
+
+            color: white;
+
+            text-decoration: none;
+
+            border-radius: 50px;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            transition: 0.3s ease;
+        }
+
+
+        .husband-button:hover {
+            background-color: #000000;
+
+            color: #f7b6d2;
+
+            transform: scale(1.05);
+        }
+
+
+        /* =========================
+           CLOSE BUTTON
+        ========================= */
+
+        .close-message {
+            margin-top: 15px;
+
+            background: transparent;
+
+            color: #000000;
+
+            border: none;
+
+            font-size: 13px;
+
+            cursor: pointer;
+
+            text-decoration: underline;
+        }
+
+
+        .close-message:hover {
+            color: #c2185b;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            h1 {
+                font-size: 45px;
+
+                margin-bottom: 40px;
+            }
+
+
+            .button {
+                width: 210px;
+
+                font-size: 16px;
+            }
+
+
+            .secret-heart {
+                right: 18px;
+
+                width: 48px;
+
+                height: 48px;
+
+                font-size: 25px;
+            }
+
+
+            .husband-message {
+                width: 85%;
+
+                padding: 30px 22px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         MAIN PAGE
+    ========================= -->
+
+    <h1>SHAMS</h1>
+
+
+    <div class="buttons">
+
+        <a href="social.html" class="button">
+            Social Media
+        </a>
+
+        <a href="cv.html" class="button">
+            CV
+        </a>
+
+        <a href="projects.html" class="button">
+            Projects
+        </a>
+
+        <a href="book.html" class="button">
+            Book
+        </a>
+
+        <a href="research.html" class="button">
+            Research
+        </a>
+
+        <a href="contact.html" class="button">
+            Contact
+        </a>
+
+    </div>
+
+
+    <!-- =========================
+         SECRET HEART
+    ========================= -->
+
+    <button
+        class="secret-heart"
+        onclick="openHusbandMessage()">
+
+        ♡
+
+    </button>
+
+
+    <!-- =========================
+         DARK BACKGROUND
+    ========================= -->
+
+    <div
+        class="overlay"
+        id="overlay"
+        onclick="closeHusbandMessage()">
+    </div>
+
+
+    <!-- =========================
+         SECRET MESSAGE
+    ========================= -->
+
+    <div
+        class="husband-message"
+        id="husbandMessage">
+
+
+        <div class="little-heart">
+            ♡
+        </div>
+
+
+        <h2>
+            For You 
+        </h2>
+
+
+        <p>
+            If you are my husband,
+            you found something
+            I secretly made just for you. 🩷
+        </p>
+
+
+        <!-- THIS BUTTON OPENS husband.html -->
+
+        <a
+            href="husband.html"
+            class="husband-button">
+
+            Come closer 🩷
+
+        </a>
+
+
+        <br>
+
+
+        <button
+            class="close-message"
+            onclick="closeHusbandMessage()">
+
+            Maybe later
+
+        </button>
+
+
+    </div>
+
+
+    <!-- =========================
+         JAVASCRIPT
+    ========================= -->
+
+    <script>
+
+        function openHusbandMessage() {
+
+            document
+                .getElementById("husbandMessage")
+                .classList.add("show");
+
+            document
+                .getElementById("overlay")
+                .classList.add("show");
+
+        }
+
+
+        function closeHusbandMessage() {
+
+            document
+                .getElementById("husbandMessage")
+                .classList.remove("show");
+
+            document
+                .getElementById("overlay")
+                .classList.remove("show");
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

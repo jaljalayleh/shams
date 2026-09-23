@@ -1,0 +1,569 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Projects</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            background: #000000;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+
+
+        /* MAIN PAGE */
+
+        .page {
+            width: 90%;
+            max-width: 1100px;
+
+            margin: 0 auto;
+
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 70px;
+        }
+
+
+        /* PROJECT SECTION */
+
+        .project-area {
+            width: 620px;
+        }
+
+
+        h1 {
+            font-size: 52px;
+            font-weight: 500;
+            letter-spacing: 3px;
+
+            margin-bottom: 20px;
+        }
+
+
+        /* PROJECT SQUARE */
+
+        .project-display {
+
+            width: 560px;
+            height: 400px;
+
+            background: #111111;
+
+            border: 3px solid #f7b6d2;
+
+            border-radius: 25px;
+
+            padding: 20px;
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 15px;
+
+            box-shadow:
+                0 0 30px rgba(247, 182, 210, 0.12);
+        }
+
+
+        /* PROJECT BUTTONS */
+
+        .project {
+
+            background: #f7b6d2;
+
+            color: #000000;
+
+            border-radius: 18px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            font-size: 17px;
+
+            font-weight: 600;
+
+            transition: 0.3s ease;
+        }
+
+
+        .project:hover {
+
+            background: #c2185b;
+
+            color: white;
+
+            transform: scale(1.04);
+        }
+
+
+        /* KITTEN SECTION */
+
+        .cat-area {
+
+            width: 300px;
+            height: 500px;
+
+            position: relative;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: flex-end;
+        }
+
+
+        /* SPEECH BUBBLE */
+
+        .speech {
+
+            position: absolute;
+
+            top: 0;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 290px;
+
+            padding: 18px;
+
+            background: #f7b6d2;
+
+            color: #000000;
+
+            border-radius: 25px;
+
+            text-align: center;
+
+            font-size: 15px;
+
+            font-weight: 600;
+
+            line-height: 1.4;
+
+            box-shadow:
+                0 0 20px rgba(247, 182, 210, 0.15);
+        }
+
+
+        /* SPEECH BUBBLE TAIL */
+
+        .speech::after {
+
+            content: "";
+
+            position: absolute;
+
+            bottom: -18px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+
+            border-top: 20px solid #f7b6d2;
+        }
+
+
+        /* DESK */
+
+        .desk {
+
+            position: absolute;
+
+            bottom: 65px;
+
+            width: 280px;
+            height: 25px;
+
+            background: #f7b6d2;
+
+            border-radius: 30px;
+        }
+
+
+        .desk-leg {
+
+            position: absolute;
+
+            bottom: -65px;
+
+            width: 14px;
+            height: 65px;
+
+            background: #f7b6d2;
+
+            border-radius: 10px;
+        }
+
+
+        .desk-leg.left {
+            left: 45px;
+        }
+
+
+        .desk-leg.right {
+            right: 45px;
+        }
+
+
+        /* KITTEN */
+
+        .cat {
+
+            position: absolute;
+
+            bottom: 90px;
+
+            width: 140px;
+            height: 160px;
+
+            z-index: 2;
+        }
+
+
+        .cat-body {
+
+            position: absolute;
+
+            bottom: 0;
+            left: 25px;
+
+            width: 90px;
+            height: 95px;
+
+            background: #f7b6d2;
+
+            border-radius: 50px 50px 35px 35px;
+        }
+
+
+        .cat-head {
+
+            position: absolute;
+
+            top: 5px;
+            left: 20px;
+
+            width: 100px;
+            height: 90px;
+
+            background: #f7b6d2;
+
+            border-radius: 50%;
+        }
+
+
+        /* EARS */
+
+        .ear {
+
+            position: absolute;
+
+            top: -12px;
+
+            width: 45px;
+            height: 50px;
+
+            background: #f7b6d2;
+
+            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+        }
+
+
+        .ear.left {
+            left: 12px;
+            transform: rotate(-20deg);
+        }
+
+
+        .ear.right {
+            right: 12px;
+            transform: rotate(20deg);
+        }
+
+
+        /* EYES */
+
+        .eye {
+
+            position: absolute;
+
+            top: 40px;
+
+            width: 10px;
+            height: 10px;
+
+            background: #000000;
+
+            border-radius: 50%;
+        }
+
+
+        .eye.left {
+            left: 28px;
+        }
+
+
+        .eye.right {
+            right: 28px;
+        }
+
+
+        /* NOSE */
+
+        .nose {
+
+            position: absolute;
+
+            top: 58px;
+            left: 45px;
+
+            width: 10px;
+            height: 8px;
+
+            background: #c2185b;
+
+            border-radius: 50%;
+        }
+
+
+        /* TAIL */
+
+        .tail {
+
+            position: absolute;
+
+            bottom: 20px;
+            right: -15px;
+
+            width: 65px;
+            height: 25px;
+
+            border: 10px solid #f7b6d2;
+
+            border-left: none;
+
+            border-radius: 0 30px 30px 0;
+
+            transform: rotate(-20deg);
+        }
+
+
+        /* BACK BUTTON */
+
+        .back {
+
+            position: fixed;
+
+            bottom: 25px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            padding: 13px 30px;
+
+            background: #f7b6d2;
+
+            color: #000000;
+
+            border-radius: 50px;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            transition: 0.3s ease;
+        }
+
+
+        .back:hover {
+
+            background: #c2185b;
+
+            color: white;
+
+            transform: translateX(-50%) scale(1.05);
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 900px) {
+
+            body {
+                overflow-y: auto;
+            }
+
+            .page {
+                flex-direction: column;
+
+                padding: 50px 0 120px;
+
+                gap: 40px;
+            }
+
+            .project-area {
+                width: 90%;
+            }
+
+            .project-display {
+                width: 100%;
+                height: 380px;
+            }
+
+            .cat-area {
+                height: 400px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <main class="page">
+
+
+        <!-- PROJECTS -->
+
+        <section class="project-area">
+
+            <h1>My Projects</h1>
+
+
+            <div class="project-display">
+
+
+                <a href="websites.html" class="project">
+    Websites
+</a>
+
+<a href="apps.html" class="project">
+    Apps
+</a>
+
+<a href="ai.html" class="project">
+    AI Projects
+</a>
+
+<a href="design.html" class="project">
+    Design
+</a>
+
+<a href="podcast.html" class="project">
+    Podcast
+</a>
+
+<a href="other.html" class="project">
+    Other Projects
+</a>
+
+            </div>
+
+        </section>
+
+
+        <!-- KITTEN -->
+
+        <section class="cat-area">
+
+
+            <div class="speech">
+
+
+                <br><br>
+
+                I work all day all night
+                <br>
+                to reach my dreams 🩷
+                have fun watching stuff
+                that came to life
+
+                <br>
+                from school projects
+                to personal ones 
+
+            </div>
+
+
+            <div class="cat">
+
+                <div class="cat-head">
+
+                    <div class="ear left"></div>
+                    <div class="ear right"></div>
+
+                    <div class="eye left"></div>
+                    <div class="eye right"></div>
+
+                    <div class="nose"></div>
+
+                </div>
+
+
+                <div class="cat-body"></div>
+
+                <div class="tail"></div>
+
+            </div>
+
+
+            <!-- DESK -->
+
+            <div class="desk"></div>
+
+            <div class="desk-leg left"></div>
+            <div class="desk-leg right"></div>
+
+
+        </section>
+
+
+    </main>
+
+
+    <!-- BACK -->
+
+    <a href="index.html" class="back">
+        ← Back
+    </a>
+
+
+</body>
+
+</html>

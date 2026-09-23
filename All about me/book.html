@@ -1,0 +1,2654 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My Book</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: #000;
+            font-family: Arial, sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            overflow: hidden;
+        }
+
+
+        /* =========================
+           BOOK
+        ========================= */
+
+        .book {
+            position: relative;
+
+            width: 400px;
+            height: 500px;
+
+            perspective: 1500px;
+        }
+
+
+        /* =========================
+           PAGES
+        ========================= */
+
+        .pages {
+            position: absolute;
+
+            width: 100%;
+            height: 100%;
+
+            background: #fff;
+
+            border-radius: 8px 18px 18px 8px;
+
+            box-shadow:
+                0 0 30px rgba(247, 182, 210, 0.25),
+                12px 12px 0 #c2185b;
+
+            padding: 35px;
+
+            color: #111;
+
+            overflow-y: auto;
+
+            z-index: 1;
+        }
+
+
+        .pages::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .pages::-webkit-scrollbar-thumb {
+            background: #f7b6d2;
+            border-radius: 10px;
+        }
+
+
+        /* =========================
+           TABLE OF CONTENTS
+        ========================= */
+
+        .contents {
+            text-align: center;
+        }
+
+
+        .contents h2 {
+            font-family: Georgia, serif;
+
+            font-size: 35px;
+
+            margin: 10px 0;
+        }
+
+
+        .contents-subtitle {
+            color: #777;
+
+            font-size: 14px;
+
+            margin-bottom: 28px;
+        }
+
+
+        .section-title {
+            font-family: Georgia, serif;
+
+            font-size: 14px;
+
+            letter-spacing: 2px;
+
+            color: #c2185b;
+
+            margin: 25px 0 12px;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =========================
+           WRITING BUTTONS
+        ========================= */
+
+        .writing-button {
+
+            width: 100%;
+
+            padding: 14px 15px;
+
+            margin-bottom: 11px;
+
+            background: #f7b6d2;
+
+            color: #000;
+
+            border: none;
+
+            border-radius: 15px;
+
+            font-family: Georgia, serif;
+
+            font-size: 15px;
+
+            cursor: pointer;
+
+            transition: 0.3s ease;
+        }
+
+
+        .writing-button:hover {
+
+            background: #c2185b;
+
+            color: white;
+
+            transform: translateX(5px);
+        }
+
+
+        /* =========================
+           WRITING
+        ========================= */
+
+        .writing {
+            display: none;
+        }
+
+
+        .writing.active {
+            display: block;
+        }
+
+
+        .writing h2 {
+
+            font-family: Georgia, serif;
+
+            font-size: 29px;
+
+            text-align: center;
+
+            margin: 5px 0 8px;
+        }
+
+
+        .date {
+
+            text-align: center;
+
+            color: #c2185b;
+
+            font-size: 12px;
+
+            margin-bottom: 30px;
+        }
+
+
+        .writing p {
+
+            font-family: Georgia, serif;
+
+            font-size: 16px;
+
+            line-height: 1.8;
+
+            margin-bottom: 18px;
+
+            text-align: left;
+
+            text-indent: 20px;
+        }
+
+
+        /* Arabic writings */
+
+        .arabic-writing {
+
+            direction: rtl;
+
+            text-align: right;
+        }
+
+
+        .arabic-writing p {
+
+            direction: rtl;
+
+            text-align: right;
+
+            text-indent: 0;
+
+            font-family: Georgia, serif;
+
+            line-height: 2;
+        }
+
+
+        /* Poem */
+
+        .poem {
+
+            text-align: center !important;
+
+            text-indent: 0 !important;
+
+            line-height: 2 !important;
+        }
+
+
+        /* =========================
+           BACK TO CONTENTS
+        ========================= */
+
+        .back-to-contents {
+
+            display: block;
+
+            margin: 30px auto 10px;
+
+            padding: 10px 22px;
+
+            background: #f7b6d2;
+
+            color: #000;
+
+            border: none;
+
+            border-radius: 30px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            transition: 0.3s ease;
+        }
+
+
+        .back-to-contents:hover {
+
+            background: #c2185b;
+
+            color: white;
+
+            transform: scale(1.05);
+        }
+
+
+        /* =========================
+           FRONT COVER
+        ========================= */
+
+        .cover {
+
+            position: absolute;
+
+            width: 100%;
+            height: 100%;
+
+            background: #f7b6d2;
+
+            border-radius: 8px 18px 18px 8px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            transform-origin: left center;
+
+            transition: transform 1s ease;
+
+            z-index: 5;
+
+            box-shadow:
+                0 0 35px rgba(247, 182, 210, 0.4),
+                8px 8px 0 #c2185b;
+
+            cursor: pointer;
+        }
+
+
+        /* SPINE */
+
+        .cover::before {
+
+            content: "";
+
+            position: absolute;
+
+            left: 20px;
+
+            top: 0;
+
+            width: 10px;
+
+            height: 100%;
+
+            background: #c2185b;
+
+            border-radius: 8px 0 0 8px;
+        }
+
+
+        /* COVER CONTENT */
+
+        .cover-content {
+
+            text-align: center;
+
+            color: #000;
+
+            padding: 40px;
+        }
+
+
+        .cover h1 {
+
+            font-family: Georgia, serif;
+
+            font-size: 48px;
+
+            margin: 0 0 20px;
+        }
+
+
+        .line {
+
+            width: 140px;
+
+            height: 3px;
+
+            background: #c2185b;
+
+            margin: 20px auto;
+        }
+
+
+        .heart {
+
+            font-size: 45px;
+
+            margin-top: 25px;
+        }
+
+
+        .click {
+
+            margin-top: 30px;
+
+            font-size: 13px;
+
+            letter-spacing: 2px;
+
+            color: #c2185b;
+        }
+
+
+        /* =========================
+           OPEN BOOK
+        ========================= */
+
+        .book.open .cover {
+
+            transform: rotateY(-180deg);
+        }
+
+
+        /* =========================
+           HOME BACK BUTTON
+        ========================= */
+
+        .home-back {
+
+            position: fixed;
+
+            bottom: 25px;
+
+            left: 25px;
+
+            padding: 12px 25px;
+
+            background: #f7b6d2;
+
+            color: #000;
+
+            text-decoration: none;
+
+            border-radius: 50px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .home-back:hover {
+
+            background: #c2185b;
+
+            color: white;
+
+            transform: scale(1.05);
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .book {
+
+                width: 78vw;
+
+                height: 92vh;
+
+                max-height: 600px;
+            }
+
+
+            .cover h1 {
+
+                font-size: 38px;
+            }
+
+
+            .pages {
+
+                padding: 25px;
+            }
+
+
+            .writing p {
+
+                font-size: 15px;
+
+                line-height: 1.7;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="book" id="book">
+
+
+        <!-- =====================================================
+             INSIDE OF BOOK
+        ====================================================== -->
+
+        <div class="pages">
+
+
+            <!-- =========================
+                 TABLE OF CONTENTS
+            ========================== -->
+
+            <div class="contents" id="contents">
+
+                <h2>My Writings ♡</h2>
+
+                <div class="contents-subtitle">
+                    things I didn't want to forget
+                </div>
+
+
+                <div class="section-title">
+                    Stories
+                </div>
+
+
+                <button
+                    class="writing-button"
+                    onclick="showWriting('childhood')">
+
+                    ✦ The Childhood That Shaped Me
+
+                </button>
+
+
+                <button
+                    class="writing-button"
+                    onclick="showWriting('unknown-version')">
+
+                    ✦ نسخة مجهولة
+
+                </button>
+
+
+                <div class="section-title">
+                    Love & Feelings
+                </div>
+
+
+                <button
+                    class="writing-button"
+                    onclick="showWriting('between-two-words')">
+
+                    ✦ Between Two Words
+
+                </button>
+
+
+                <button
+                    class="writing-button"
+                    onclick="showWriting('love')">
+
+                    ♡ الحب
+
+                </button>
+
+
+                <button
+                    class="writing-button"
+                    onclick="showWriting('love-fear')">
+
+                    ♡ الحب بين الصدق والخوف
+
+                </button>
+
+
+                <button
+                    class="writing-button"
+                    onclick="showWriting('young-love')">
+
+                    ♡ Love at a Young Age
+
+                </button>
+
+
+                <button
+                    class="writing-button"
+                    onclick="showWriting('attachment')">
+
+                    ♡ تفكيك التعلّق
+
+                </button>
+
+
+                <button
+                    class="writing-button"
+                    onclick="showWriting('important-people')">
+
+                    ♡ أهم البشر
+
+                </button>
+
+
+                <button
+                    class="writing-button"
+                    onclick="showWriting('maybe-love')">
+
+                    ♡ معقول بحبو؟
+
+                </button>
+
+
+                <button
+                    class="writing-button"
+                    onclick="showWriting('future')">
+
+                    ♡ When I Imagine the Future
+
+                </button>
+
+
+                <div class="section-title">
+                    Thoughts & Realizations
+                </div>
+
+
+                <button
+                    class="writing-button"
+                    onclick="showWriting('strong-people')">
+
+                    ✦ حتى الأقوياء بيحتاجوا حنان
+
+                </button>
+
+
+                <button
+                    class="writing-button"
+                    onclick="showWriting('obsessions')">
+
+                    ✦ هواجس
+
+                </button>
+
+
+                <button
+                    class="writing-button"
+                    onclick="showWriting('death')">
+
+                    ✦ الموت
+
+                </button>
+
+
+                <button
+                    class="writing-button"
+                    onclick="showWriting('school')">
+
+                    ✦ الثمن… أنت
+
+                </button>
+
+
+                <button
+                    class="writing-button"
+                    onclick="showWriting('motherhood')">
+
+                    ✦ حلم الأمومة
+
+                </button>
+
+
+                <div class="section-title">
+                    Poetry
+                </div>
+
+
+                <button
+                    class="writing-button"
+                    onclick="showWriting('stars')">
+
+                    ✦ When Our Stars Align
+
+                </button>
+
+
+                <button
+                    class="writing-button"
+                    onclick="showWriting('memory')">
+
+                    ✦ أَتُراني أَهواكَ أَم أَهْوى ذِكراكَ
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                 THE CHILDHOOD THAT SHAPED ME
+            ====================================================== -->
+
+            <div class="writing" id="childhood">
+
+                <h2>The Childhood That Shaped Me</h2>
+
+                <div class="date">
+                    A piece about childhood · home · love
+                </div>
+
+
+                <p>
+                    My childhood was beautiful.
+                </p>
+
+
+                <p>
+                    Maybe it wasn’t ordinary. Maybe it was, depending on who you ask. Compared to some of my relatives, it was different.
+                </p>
+
+
+                <p>
+                    People often say someone was born with a “golden spoon.” Most people hear that and think of wealth. When I say it, I mean something else.
+                </p>
+
+
+                <p>
+                    I was raised with love.
+                </p>
+
+
+                <p>
+                    It was never about money, even though I always had everything I needed. The greatest gift my parents gave me wasn’t comfort it was the way they loved me.
+                </p>
+
+
+                <p>
+                    Looking back, I realize how hard they tried to protect me from everything, even from myself. They taught me kindness before they taught me anything else. They taught me to help others without expecting something in return. They taught me that love could be endless.
+                </p>
+
+
+                <p>
+                    What they didn’t teach me wasn’t because they failed.
+                </p>
+
+
+                <p>
+                    They didn’t teach me how to curse at people. They didn’t teach me how to hold onto anger. They didn’t teach me how to protect myself from people who wouldn’t treat me with the same kindness I had been taught to give.
+                </p>
+
+
+                <p>
+                    They couldn’t.
+                </p>
+
+
+                <p>
+                    For as long as I can remember, they were always there. I never needed to protect myself because they did it for me.
+                </p>
+
+
+                <p>
+                    It wasn’t until I stepped into the world on my own that I realized love can build a gentle heart, but life also asks you to build a strong one.
+                </p>
+
+
+                <p>
+                    As a child, I thought the world looked like my home.
+                </p>
+
+
+                <p>
+                    I believed people meant what they said. I believed kindness was always returned. I believed that if you treated people with respect, they would respect you back.
+                </p>
+
+
+                <p>
+                    Children don’t question the world they’re born into. They assume it’s normal. I didn’t know that the safety I felt every day was a privilege. I thought everyone had someone waiting for them at the end of a difficult day. I thought everyone knew what unconditional love felt like.
+                </p>
+
+
+                <p>
+                    It wasn’t until I grew older that I realized the world outside my home spoke a different language.
+                </p>
+
+
+                <p>
+                    Not everyone chooses kindness.
+                </p>
+
+
+                <p>
+                    Not everyone protects what is gentle.
+                </p>
+
+
+                <p>
+                    Some people take advantage of those who always try to understand them. Some mistake kindness for weakness.
+                </p>
+
+
+                <p>
+                    Over time, I started noticing small differences between what I believed and what I experienced. Moments that didn’t feel cruel on their own, but together slowly taught me something new about people.
+                </p>
+
+
+                <p>
+                    I began to understand that not everyone grows up with the same kind of protection I had. Some people learn early how to defend themselves, how to hide their feelings, how to expect less from others so they don’t get disappointed.
+                </p>
+
+
+                <p>
+                    I didn’t.
+                </p>
+
+
+                <p>
+                    And that made me see both sides of it. I was grateful for the way I was raised, but also confused about how to exist in a world that didn’t always mirror it.
+                </p>
+
+
+                <p>
+                    At times, I felt like I was learning a language everyone else already spoke fluently. A language of boundaries, silence, hesitation, and caution. I was still speaking with openness and trust, not realizing that not every space deserved that version of me.
+                </p>
+
+
+                <p>
+                    Slowly, I started learning that growing up isn’t just about becoming older. It’s about adjusting the way you see people, the way you protect yourself, and the way you decide who gets close to you.
+                </p>
+
+
+                <p>
+                    And even though I was still the same person at my core, something inside me began to change.
+                </p>
+
+
+                <p>
+                    Not my kindness but my understanding of where to place it.
+                </p>
+
+
+                <p>
+                    Traveling a lot as a kid meant I never had a friend I truly knew for years. Every time I moved or changed surroundings, I had to start over. New people. New rules. New ways of speaking. New expectations.
+                </p>
+
+
+                <p>
+                    I kept adapting, but I never really felt settled.
+                </p>
+
+
+                <p>
+                    I was born in Jordan, but I moved to the UAE when I was still a toddler, and later I moved back to Jordan—specifically Zarqa. That change alone felt like stepping into a completely different world. It wasn’t just a new place. It was a new way of thinking, talking, and even existing.
+                </p>
+
+
+                <p>
+                    At home and with my relatives, I felt out of place. They saw me as the “kid from abroad,” the one who didn’t really belong. I didn’t speak like them. I didn’t act like them. I didn’t even understand some of the things they considered normal.
+                </p>
+
+
+                <p>
+                    For them, things were direct, loud, sometimes harsh. For me, it was unfamiliar. I had grown up in a different kind of environment, one that didn’t prepare me for that kind of social world.
+                </p>
+
+
+                <p>
+                    Even in school, I struggled in ways I didn’t know how to explain.
+                </p>
+
+
+                <p>
+                    I was known. Not always in a good way. I spoke fluent English, I knew the teachers and the principal, I moved between groups easily on the surface. From the outside, it might have looked like I fit in.
+                </p>
+
+
+                <p>
+                    But I didn’t feel like I did.
+                </p>
+
+
+                <p>
+                    There were people who didn’t like me sometimes out of jealousy, sometimes because I seemed different. And there were moments where my kindness was misunderstood, where my silence was mistaken for weakness. I didn’t know how to protect myself socially, and I didn’t know where the line was between being kind and being taken advantage of.
+                </p>
+
+
+                <p>
+                    I was bullied in ways I never talked about.
+                </p>
+
+
+                <p>
+                    Not to my parents. Not to anyone.
+                </p>
+
+
+                <p>
+                    So I found ways to escape. Sometimes I would pretend to be sick just to leave school early. Sometimes I shut everything off and acted like none of it mattered.
+                </p>
+
+
+                <p>
+                    And sometimes, I made choices I still don’t fully understand.
+                </p>
+
+
+                <p>
+                    There was a moment I still think about.
+                </p>
+
+
+                <p>
+                    A girl named Jana had new pens her father bought her. She was excited about them and showed them off everyone thought she was ( cool ). When everyone left the classroom on break, I stayed behind.
+                </p>
+
+
+                <p>
+                    And I took them.
+                </p>
+
+
+                <p>
+                    I don’t know why I did it.
+                </p>
+
+
+                <p>
+                    The next day, i showed them to Jana and i was like look my dad bought me the same pens but later that day my teacher asked about if i took them from Jana, I said I had gotten them from my father. I lied, and she believed me.
+                </p>
+
+
+                <p>
+                    Even now, I don’t fully recognize that version of myself. I don’t know what I was trying to fix, or prove, or feel in that moment.
+                </p>
+
+
+                <p>
+                    But I remember the silence that came after it.
+                </p>
+
+
+                <p>
+                    I stopped before it could go any further.
+                </p>
+
+
+                <p>
+                    I knew my father would have bought me anything I wanted. I never really had hunger in my eyes when it came to material things. I grew up seeing gold and diamonds—things that made small objects like pens feel meaningless in comparison.
+                </p>
+
+
+                <p>
+                    But maybe it was never about the pens.
+                </p>
+
+
+                <p>
+                    Maybe, in that moment, something inside me was looking for control. A small way to respond to feelings I didn’t know how to name.
+                </p>
+
+
+                <p>
+                    Maybe the anger in my younger self convinced me that this was a form of revenge—not against a person, but against everything I didn’t understand yet.
+                </p>
+
+
+                <p>
+                    That moment stayed with me not because of what I took, but because of how little I understood myself while I was doing it.
+                </p>
+
+
+                <button
+                    class="back-to-contents"
+                    onclick="showContents()">
+
+                    ← Back to writings
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                 BETWEEN TWO WORDS
+            ====================================================== -->
+
+            <div class="writing" id="between-two-words">
+
+                <h2>Between Two Words</h2>
+
+                <div class="date">
+                    feelings · choices · contradictions
+                </div>
+
+
+                <p>
+                    There are always two words standing between what we feel and what we say
+                </p>
+
+
+                <p>
+                    Sometimes they are love and fear<br>
+                    Sometimes they are truth and silence<br>
+                    Sometimes they are stay and leave<br>
+                    And sometimes they are words we never find the courage to say
+                </p>
+
+
+                <p>
+                    Maybe thats what makes people so complicated
+                </p>
+
+
+                <p>
+                    We spend so much of our lives trying to explain what happens inside us while barely understanding it ourselves We love people and still hurt them We tell the truth and still get misunderstood We lie even when the truth might have been easier We stay when every part of us is telling us to leave and we leave when some quiet part of us is still begging us to stay
+                </p>
+
+
+                <p>
+                    And somewhere between all those contradictions we become people we never expected to become
+                </p>
+
+
+                <p>
+                    Maybe thats what growing up really is
+                </p>
+
+
+                <p>
+                    Not becoming someone completely different<br>
+                    But slowly discovering all the versions of yourself that were already there
+                </p>
+
+
+                <p>
+                    The person who loves too much<br>
+                    The person who is afraid of being loved<br>
+                    The person who wants to be understood but refuses to explain themselves<br>
+                    The person who wants honesty but sometimes hides behind a lie<br>
+                    The person who says they dont care because caring feels more dangerous
+                </p>
+
+
+                <p>
+                    We like to believe that people are either good or bad<br>
+                    Honest or dishonest<br>
+                    Strong or weak<br>
+                    Loving or cruel
+                </p>
+
+
+                <p>
+                    But people were never that simple
+                </p>
+
+
+                <p>
+                    Someone can love you and still hurt you<br>
+                    Someone can lie to you and still care about you<br>
+                    Someone can be terrified of losing you and still be the reason you want to leave<br>
+                    Someone can spend every day trying to make you happy and still make you feel alone
+                </p>
+
+
+                <p>
+                    And maybe thats where the hardest questions begin
+                </p>
+
+
+                <p>
+                    If someone lies because they are afraid of losing you<br>
+                    Is the lie still a betrayal
+                </p>
+
+
+                <p>
+                    If someone hides the truth because they think it will protect you<br>
+                    Are they protecting you or themselves
+                </p>
+
+
+                <p>
+                    If someone keeps trying to make you happy but you never believe them<br>
+                    Does their effort still mean something
+                </p>
+
+
+                <p>
+                    And if someone loves you but their love keeps hurting you<br>
+                    Is love enough
+                </p>
+
+
+                <p>
+                    Maybe there are no simple answers
+                </p>
+
+
+                <p>
+                    Maybe thats why we keep searching for them
+                </p>
+
+
+                <p>
+                    Because humans have always wanted things to have clear beginnings and endings
+                    We want to know when love becomes attachment
+                    When forgiveness becomes weakness
+                    When patience becomes self abandonment
+                    When silence becomes a lie
+                    When staying becomes losing yourself
+                </p>
+
+
+                <p>
+                    But life rarely gives us a clear line
+                </p>
+
+
+                <p>
+                    Most things happen somewhere in between
+                </p>
+
+
+                <p>
+                    Between loving someone and needing them<br>
+                    Between trusting someone and fearing them<br>
+                    Between telling the truth and protecting yourself<br>
+                    Between wanting someone to stay and knowing they should leave
+                </p>
+
+
+                <p>
+                    And maybe thats what this chapter is about
+                </p>
+
+
+                <p>
+                    Everything that exists between two words
+                </p>
+
+
+                <p>
+                    The space where feelings become choices
+                    Where choices become consequences
+                    And where consequences slowly become who we are
+                </p>
+
+
+                <button
+                    class="back-to-contents"
+                    onclick="showContents()">
+
+                    ← Back to writings
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                 الحب
+            ====================================================== -->
+
+            <div class="writing arabic-writing" id="love">
+
+                <h2>الحب</h2>
+
+                <div class="date">
+                    الحب · الأمان · الاختيار
+                </div>
+
+
+                <p>
+                    الحب مش دايم بيجي بصوره حلوه الحب اوقات بيجي بيقلبك من جوه بيخليك تواجه حالك وتكتشف وجعك وتحب رغم الخوف رغم الماضي اللي بعده متل الكابوس يلي عم يلحقك
+                </p>
+
+
+                <p>
+                    الحب مش حكي ناعم ولا ورد بينهدى الحب هو الشخص يلي بيوقف حدك وقت الكل بيبعد هو يلي بيشوفك وانت مش باحسن حالاتك وبيختار يضل و بيسمع سكوتك وبيفهمك من نظرتك الحب مش بس قلبين عم يدقوا سوا الحب هو قرار كل يوم نختار بعض رغم التعب رغم الاختلاف رغم كل شي ممكن يخلينا نفل
+                </p>
+
+
+                <p>
+                    الحب لما يكون حقيقي بخليك احسن وتتغير كل يوم عن يلي قبلو عشان تكون نسخه احلى عن مين كنت هو مو نهايه اي حلم هو بدايه لحلم اكبر بجمع قلبين اختارو انو يضلو حد بعض
+                </p>
+
+
+                <p>
+                    و مستعدين يواجهو العالم كلو منشان هالحب يكبر
+                </p>
+
+
+                <p>
+                    لان الحب الحقيقي ما بيخاف من الوقت ولا من المسافات ولا من الايام الصعبه الحب الحقيقي بيكبر بكل تجربه وبيقوى بكل مره الحياه بتحاول تختبرو
+                </p>
+
+
+                <p>
+                    هو انك تلاقي شخص بتقدر تكون معو على حقيقتك من دون اقنعه ومن دون خوف من الحكم عليك شخص بيعرف عيوبك قبل ميزاتك وبيختار يبقى مو لانك كامل بل لانك انت
+                </p>
+
+
+                <p>
+                    الحب هو انك تلاقي روح بتشبه روحك حتى لو كنتو مختلفين بكل شي هو انك تحس انو في حدا شايل عنك نص التعب حتى من دون ما يحكي وانو في قلب عم يدق بمكان تاني بس كل همو يطمن عليك
+                </p>
+
+
+                <p>
+                    واوقات الحب بيكون رساله صغيره باخر الليل او سوال عابر بنص النهار او دعوه صادقه باسمك بين الف دعوه يمكن الناس تشوفها اشياء بسيطه بس اللي بيحب بيعرف انو التفاصيل الصغيره هي اللي بتبني اكبر المشاعر
+                </p>
+
+
+                <p>
+                    الحب مو انك تملك شخص الحب انك تعطيه الحريه ويبقى مختارك كل يوم من جديد مو لانو مجبور بس لانو ما لقى مكان ادفى من قلبك
+                </p>
+
+
+                <p>
+                    ولما يمر العمر وتخف الاحلام الكبيره وتروح ضجه الايام بيضل الحب الحقيقي واقف بمكانو بيضل النظره نفسها والاهتمام نفسو والطمأنينه نفسها كانو الزمن مر على كل شي الا على هالقلبين
+                </p>
+
+
+                <p>
+                    لان الحب بالنهايه مو شعور بيجي وبيختفي الحب وطن منلاقيه بعيون شخص وبيصير اصعب شي بالحياه اننا نتخيلها من دونو
+                </p>
+
+
+                <button
+                    class="back-to-contents"
+                    onclick="showContents()">
+
+                    ← Back to writings
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                 الحب والصدق والخوف
+            ====================================================== -->
+
+            <div class="writing arabic-writing" id="love-fear">
+
+                <h2>الحب بين الصدق والخوف</h2>
+
+                <div class="date">
+                    الحب · الكذب · الصدق · الخوف
+                </div>
+
+
+                <p>
+                    الحب والكذب والصدق والخوف كلهم اشياء بتتداخل ببعض اكتر مما منتخيل
+                </p>
+
+
+                <p>
+                    احيانا منحب حدا لدرجه منخاف نخسره فبنكذب عليه او منخبي عنه جزء من الحقيقه مش لانو ما منثق فيه بس لانو خايفين انو الحقيقة تغير نظرته النا
+                </p>
+
+
+                <p>
+                    واصعب شي انك تكون عم تحاول بكل قوتك تخلي شخص مبسوط وسعيد بوجودك وبدل ما يحس بكل هالاشيا يشك فيك وما يصدقك
+                </p>
+
+
+                <p>
+                    بتصير تحس انك مهما عملت ومهما حاولت ومهما ضحيت بعدك مش قادر تثبت ان مشاعرك حقيقيه
+                </p>
+
+
+                <p>
+                    وهون بيبلش الخوف الحقيقي مش خوف انك تخسره وبس الخوف انك تخسر صورته عنك انك تكون صادق وهو يشوفك كاذب انك تحارب كرماله وهو يفتكر انك عم تحاربه
+                </p>
+
+
+                <p>
+                    يمكن الحب مش دايما انك تعرف تثبت للشخص انك بتحبه يمكن الحب احيانا انك تكون واضح وصادق حتى لو كنت خايف من النتيجه
+                </p>
+
+
+                <p>
+                    بس كمان الحب ما لازم يخليك طول الوقت عم تثبت انك تستاهل التصديق
+                </p>
+
+
+                <p>
+                    لانو لما توصل لمرحله تصير عم تحارب كرمال شخص يصدقك بدل ما تعيش معه بامان بتصير العلاقه معركه بدل ما تكون مكان ترتاح فيه
+                </p>
+
+
+                <p>
+                    والصدق لحاله ما بيضمن انو الطرف التاني رح يصدقك بس على الاقل بيخليك تعرف انك ما خنت حقيقتك كرمال تحافظ على شخص
+                </p>
+
+
+                <p>
+                    يمكن اكتر شي بيوجع بالحب مش انك تحب حدا وما يحبك يمكن انك تحبه بكل صدق وتحاول تخليه سعيد بوجودك وبالاخر تحس انو كل هالصدق ما كان كافي حتى يصدقك
+                </p>
+
+
+                <button
+                    class="back-to-contents"
+                    onclick="showContents()">
+
+                    ← Back to writings
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                 LOVE AT A YOUNG AGE
+            ====================================================== -->
+
+            <div class="writing" id="young-love">
+
+                <h2>Love at a Young Age</h2>
+
+                <div class="date">
+                    love · attachment · self discovery
+                </div>
+
+
+                <p>
+                    Love at a young age is often intense confusing and deeply emotional because its usually one of the first times a person feels truly seen attached or emotionally connected to someone Young love can feel pure and overwhelming at the same time since emotions are still new and people are learning about themselves through another person
+                </p>
+
+
+                <p>
+                    Some philosophers saw young love as something beautiful because it teaches vulnerability passion and self discovery Plato believed love could push people toward growth and understanding themselves more deeply while Soren Kierkegaard wrote about how love can bring both joy and anxiety because strong feelings also create fear of loss rejection and heartbreak
+                </p>
+
+
+                <p>
+                    At a young age people sometimes confuse love with attachment loneliness or the need to feel valued because emotions are strong and experience is limited But even when young love doesnt last it can still shape the way someone understands trust affection and relationships for years after it ends
+                </p>
+
+
+                <button
+                    class="back-to-contents"
+                    onclick="showContents()">
+
+                    ← Back to writings
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                 ATTACHMENT
+            ====================================================== -->
+
+            <div class="writing arabic-writing" id="attachment">
+
+                <h2>تفكيك التعلّق</h2>
+
+                <div class="date">
+                    التعلّق · الاستقلال · النمو
+                </div>
+
+
+                <p>
+                    التعلّق بشخص شي بيصير لما قلبك وعقلك يربطوا راحتك وسعادتك بوجود هالشخص بحياتك ففكرة “التخلّص منه بسرعة” غالبًا ما بتكون واقعية الأفضل هو “تفكيك التعلّق تدريجيًا”
+                </p>
+
+
+                <p>
+                    أول شي لازم تنتبه له إنك مو عم تتخلّى عن الشخص بس عم ترجع توازن حياتك يعني ما تخلي يومك ومشاعرك كلهم متعلقين فيه حاول توسّع حياتك شوي شغل أصدقاء هوايات أهداف جديدة أي شي يرجّع تركيزك إلك إنت مو إله
+                </p>
+
+
+                <p>
+                    ثاني شي خفّف التواصل أو التفكير فيه بشكل مقصود لأنه كل ما تضل عم تغذّي الفكرة عم يقوى التعلّق ومع الوقت الدماغ بيتعود إنو وجوده مش محور حياتك
+                </p>
+
+
+                <p>
+                    ثالث شي اسأل حالك بصراحة هل هالتعلّق مبني على حب حقيقي ولا على فراغ داخلي أو خوف من الوحدة أحيانًا التعلّق بيكون مو بالشخص نفسه بل بالإحساس اللي بيعطينا ياه
+                </p>
+
+
+                <p>
+                    سورين كيركغور كان يحكي إنو التعلّق الزائد بالآخر ممكن يخلّي الإنسان يضيع نفسه لأنه بيصير معتمد على شخص خارجي ليكمل فراغ داخلي بدل ما يبني نفسه من جواته
+                </p>
+
+
+                <p>
+                    وبالنهاية التعلّق ما بينشال فجأة هو بيخف مع الوقت لما تبني حياة أوسع داخليًا وخارجياً وتتعلم إنك تكون مرتاح حتى بغياب الشخص مو بس بوجوده
+                </p>
+
+
+                <button
+                    class="back-to-contents"
+                    onclick="showContents()">
+
+                    ← Back to writings
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                 IMPORTANT PEOPLE
+            ====================================================== -->
+
+            <div class="writing arabic-writing" id="important-people">
+
+                <h2>أهم البشر</h2>
+
+                <div class="date">
+                    الراحة · القرب · الاكتفاء
+                </div>
+
+
+                <p>
+                    في ناس وجودهم بحياتك بيغير كل شي مو لانهم اخدوا مكان كل الي حوليك بس لانهم صاروا العالم كلها بحد ذاتهم
+                </p>
+
+
+                <p>
+                    وفجأة بتكتشف انك بطلت اتدور على ناس تحكيهن ولا على اصحاب كتير لانو الشخص الصح بيعطيك شعور انك اكتفيت انو ما عاد بدك حدا تاني حوليك
+                </p>
+
+
+                <p>
+                    شي كنت مفكره انو مستحيل
+                </p>
+
+
+                <p>
+                    لاول مره احس انو بس بدي احكي مع هيدا الشخص حتى لو مافي شي احكيه بلشت حس انو بدي احكي الاشيا المهمه والاشيا التافهه تفاصيل يومي اللي ما كانت تهم حدا والافكار اللي بتيجيني بنص الليل
+                </p>
+
+
+                <p>
+                    هيدا الشخص فجاه بصير حدا كتير مهم بتصير تروح لعندو قبل اي حدا وتدور على صوتو قبل ضجه العالم كلها
+                </p>
+
+
+                <p>
+                    والموضوع مو تعلق الموضوع انك لقيت راحه راحه نادره لدرجه انك ما عاد تحتاج تدور عليها بمكان تاني
+                </p>
+
+
+                <p>
+                    في وجوده بتحس انو كل الناس زياده ومو لانك ما عدت تحب العالم بس لانك مع هالشخص بتحس انو ما في شي ناقص
+                </p>
+
+
+                <p>
+                    كانك بعد عمر لقيت المكان اللي قلبك بيهدى فيه
+                </p>
+
+
+                <p>
+                    ويمكن اجمل شعور مو انو يكون عندك الف شخص حواليك يمكن اجمل شعور انو يكون عندك شخص واحد
+                </p>
+
+
+                <p>
+                    ولما يحكي بتحس انو الضجه كلها سكتت ولما يضحك بتحس انو الدنيا اخف ولما يكون موجود بتحس انك بمكانك الصح
+                </p>
+
+
+                <p>
+                    وساعتها بتفهم انو الاكتفاء مو انو يكون عندك كل شي الاكتفاء انك تلاقي شخص وجودو لحالو بيحسسك انك ما عاد محتاج شي تاني
+                </p>
+
+
+                <button
+                    class="back-to-contents"
+                    onclick="showContents()">
+
+                    ← Back to writings
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                 MAYBE I LOVE HIM
+            ====================================================== -->
+
+            <div class="writing arabic-writing" id="maybe-love">
+
+                <h2>معقول بحبو؟</h2>
+
+                <div class="date">
+                    بلا عنوان · القرب · الحب
+                </div>
+
+
+                <p>
+                    في ناس بيفوتو على حياتنا من دون موعد ومن دون مقدمات وفجاه بتلاقي حالك عم تحكي معو بالساعات وما بتحسي بالوقت
+                </p>
+
+
+                <p>
+                    بتحكيلو عن اشياء ما كنتي متخيله انك تحكيها لحدا وبتلاقيه عم يسمعك وكانو ناطر هالحكي من زمان
+                </p>
+
+
+                <p>
+                    وفجاه بصير اسمو اول شي بيخطر ببالك لما يصير معك شي حلو واول شخص بدك تبعتي لو لما يكون قلبك مليان حكي
+                </p>
+
+
+                <p>
+                    بتصيري تحسي انو قريب منك بشكل غريب كانك بتعرفيه من سنين رغم انو الوقت بيناتكن قصير وكانو روحك حافظه روحو من قبل ما تلتقو
+                </p>
+
+
+                <p>
+                    ومو لانو كامل ولا لانو مختلف عن كل الناس بس لانو معو ما بتتعبي وانتي عم تكوني نفسك ما بتحتاجي تمثلي ولا تشرحي حالك كتير بيفهمك من ابسط كلمه ومن اهدى سكوت
+                </p>
+
+
+                <p>
+                    ويمكن اجمل شعور هو لما تكتشفي انو في شب صار جزء من يومك من دون ما تنتبهي شخص وجودو صار يطمنك وكلامو صار يغير مزاجك وضحكتو صارت سبب تبتسمي من دون سبب
+                </p>
+
+
+                <p>
+                    وبتخافي تعترفي قديش صار مهم لقلبك لانك مو متعوده حدا يفهمك بهالطريقه ولا حدا يوصلك لهالشعور بكل هالبساطه
+                </p>
+
+
+                <p>
+                    وساعتها بتعرفي انو بعض الاشخاص ما بيفوتو على القلب شوي شوي بعضهم بيفوت مره وحده وبيصير المكان اللي ما كنتي تعرفي انو ناقص بقلبك
+                </p>
+
+
+                <p>
+                    وبتبلشي تلاحظي تفاصيل ما كنتي تنتبهي عليها قبل بتصير بعض الكلمات الها معنى مختلف وبعض الاغاني كانها عم تحكي عنكن وبعض اللحظات العاديه بتصير ذكرى ما بتنتسى
+                </p>
+
+
+                <p>
+                    وبين كل هالمشاعر بيجي الخوف الخوف من قديش صار قريب الخوف من انك تعلقي قلبك بشخص و ما بتعرفي شو مخبي الزمن الك والخوف من انو يصير جزء منك وبعدين ياخدو الوقت لمكان بعيد عنك
+                </p>
+
+
+                <p>
+                    بس مع الخوف بتضلي ترجعي لعندو كانو في شي بقلبك مرتاح بوجودو شي ما بيقدر يفسرو عقل ولا منطق
+                </p>
+
+
+                <p>
+                    بتصيري تحكي معو عن احلامك اللي ما حكيتيها لحدا وعن وجعك اللي خبتيه سنين وعن النسخه الحقيقيه منك اللي العالم ما عمرو شافها
+                </p>
+
+
+                <p>
+                    والمفاجاه مو انو سمعك المفاجاه انو فهمك
+                </p>
+
+
+                <p>
+                    فهم الاشياء اللي ما عرفتي تعبري عنها وفهم الحزن اللي كان ورا ضحكتك وفهم التعب اللي كنتي مخبيتيو ورا كلمة انا منيحه
+                </p>
+
+
+                <p>
+                    وساعتها بتحسي انو القرب الحقيقي مو بعدد السنين ولا بعدد اللقاءات القرب الحقيقي هو لما حدا يوصل لاجزاء منك ما وصلها حدا قبل
+                </p>
+
+
+                <p>
+                    ولما يصير الحكي معو جزء من يومك بتكتشفي انو بعض الاشخاص ما بيغيرو يومك وبس بعضهم بيغيرو شي جواتك
+                </p>
+
+
+                <p>
+                    بيخلوكي تشوفي الحياه بطريقه اهدا وتشوفي حالك بعين احن وتشوفي المستقبل باقل خوف
+                </p>
+
+
+                <p>
+                    ويمكن اجمل شي مو انك وقعتي بحب شخص يمكن اجمل شي انك لقيتي شخص حسسك انك مفهومه من دون ما تشرحي حالك طول الوقت
+                </p>
+
+
+                <p>
+                    شخص لما يحكي بتحسي انو الضجه جواتك بتسكت شوي
+                </p>
+
+
+                <p>
+                    ولما يغيب بتحسي انو في تفصيل صغير ناقصه من يومك
+                </p>
+
+
+                <p>
+                    وشوي شوي بتفهمي انو مو كل الناس اللي منلتقي فيهم بيتركو اثر
+                </p>
+
+
+                <p>
+                    بس في ناس بيمرقو بحياتنا مره وحده وبيتركو بصمه بقلبنا ما بيمحيها لا وقت ولا مسافات ولا حتى الايام اللي بتغير كل شي معقول بحبو؟
+                </p>
+
+
+                <button
+                    class="back-to-contents"
+                    onclick="showContents()">
+
+                    ← Back to writings
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                 WHEN I IMAGINE THE FUTURE
+            ====================================================== -->
+
+            <div class="writing" id="future">
+
+                <h2>When I Imagine the Future</h2>
+
+                <div class="date">
+                    16.07.2026
+                </div>
+
+
+                <p>
+                    Loving someone and seeing them in your future is a different kind of love because you’re not just loving who they are right now you’re loving the possibility of who you could become together
+                </p>
+
+
+                <p>
+                    You start imagining ordinary things instead of just romantic ones Their name somehow ends up inside your plans You imagine growing older together arguing over stupid things cooking together coming home after a long day and knowing they’ll still be there You don’t just picture dates and pretty moments You picture the boring days too and somehow those feel just as beautiful
+                </p>
+
+
+                <p>
+                    But there’s something scary about seeing someone in your future because suddenly losing them doesn’t only mean losing a person It means losing all the little futures you imagined with them All the places you thought you’d go All the versions of yourself you thought you’d become beside them
+                </p>
+
+
+                <p>
+                    Maybe that’s why loving someone deeply is partly an act of faith You can’t actually know if they’ll stay You can’t guarantee that the person you love today will be standing beside you years from now But you choose them in the present anyway
+                </p>
+
+
+                <p>
+                    And maybe real love isn’t about being certain that someone will be your forever
+                </p>
+
+
+                <p>
+                    Maybe it’s about looking at them and thinking
+                </p>
+
+
+                <p>
+                    I don’t know what the future holds but when I imagine it I want you there
+                </p>
+
+
+                <button
+                    class="back-to-contents"
+                    onclick="showContents()">
+
+                    ← Back to writings
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                 EVEN THE STRONG NEED TENDERNESS
+            ====================================================== -->
+
+            <div class="writing arabic-writing" id="strong-people">
+
+                <h2>حتى الأقوياء بيحتاجوا حنان</h2>
+
+                <div class="date">
+                    القوة · الاحتياج · الحنان
+                </div>
+
+
+                <p>
+                    كل شخص مهما كان قوي بيحتاج شوي اهتمام وحنان خاص فيه
+                </p>
+
+
+                <p>
+                    حتى الشخص اللي دايما بيوقف مع غيره بيحتاج حدا يوقف معه
+                    وحتى اللي دايما بيقول انا منيح ممكن يكون جواه اشيا ما عرف كيف يحكي عنها
+                </p>
+
+
+                <p>
+                    القوه مش انك ما تحتاج حدا
+                    القوه انك تقدر تعترف انك محتاج
+                </p>
+
+
+                <p>
+                    احيانا كل اللي بدنا ياه مش حل ولا نصيحه ولا كلام كبير
+                    بدنا حدا يسالنا كيفنا ويكون فعلا مهتم يسمع الجواب
+                </p>
+
+
+                <p>
+                    بدنا حدا ينتبه للتفاصيل الصغيره
+                    للتعب اللي مخبينه بصوتنا
+                    للسكوت اللي صار اطول من العاده
+                    وللابتسامه اللي صارت مجرد طريقه نقول فيها للناس انو كل شي تمام
+                </p>
+
+
+                <p>
+                    حتى اقوى شخص ممكن يتعب
+                    وحتى اكتر شخص بيعطي ممكن يجي عليه وقت يحتاج حدا يعطيه
+                </p>
+
+
+                <p>
+                    لانو بالنهايه القوه ما بتلغي احتياجنا للحب
+                    والاستقلال ما يعني انو لازم نعيش كل شي لحالنا
+                </p>
+
+
+                <p>
+                    كلنا بدنا حدا يحسسنا انو في مكان بالعالم فينا نكون فيه ضعاف شوي
+                    من دون ما نضطر نبرر تعبنا
+                    ومن دون ما نخاف انو حدا يشوف الجانب اللي طول عمرنا عم نحاول نخبيه
+                </p>
+
+
+                <button
+                    class="back-to-contents"
+                    onclick="showContents()">
+
+                    ← Back to writings
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                 هواجس
+            ====================================================== -->
+
+            <div class="writing arabic-writing" id="obsessions">
+
+                <h2>هواجس</h2>
+
+                <div class="date">
+                    الليل · الخوف · الأمل
+                </div>
+
+
+                <p>
+                    في الليل لما بيهدى كل شي بتصحى الهواجس
+                    بتقتحم الهدوء وبتقعد حد القلب كانها صاحبه المكان
+                    بتسال اساله ما الها جواب وبتفتح بواب كنا مفكرين انو سكرناها من زمان
+                </p>
+
+
+                <p>
+                    فجاه بصير الماضي حاضر والخوف حقيقه والسكوت أعلى من اي صوت
+                </p>
+
+
+                <p>
+                    الهواجس ما بتكون دايما عن الاشيا اللي صارت
+                    أوقات بتكون عن الاشيا اللي ما صارت
+                    عن كلمه ما انحكت
+                    عن فرصه ضاعت
+                    عن شخص مشي قبل ما نلحق نقله قديش كان مهم
+                </p>
+
+
+                <p>
+                    بتخلينا نعيش الف احتمال وننسى الواقع الوحيد اللي عم نعيشه
+                </p>
+
+
+                <p>
+                    في هواجس بتخوفنا من بكرا وبتخلينا نفكر اذا الطريق اللي ماشين فيه صح واذا احلامنا رح توصلنا لمطرح نستحقه واذا الاشخاص اللي منحبهم رح يضلوا معنا او رح يصيروا مجرد ذكرى جديده من الذكريات اللي منجمعها بالغصب
+                </p>
+
+
+                <p>
+                    واصعب الهواجس هي يلي ما حدا بيشوفها المعارك اللي بتصير جواتنا و مع هيك كل يوم بنضحك للعالم وكانها مو موجوده
+                </p>
+
+
+                <p>
+                    منضحك ومنحكي ومنكمل حياتنا مع انو بقلبنا في الف سؤال بسرق النوم من عيونا
+                </p>
+
+
+                <p>
+                    بس يمكن الهواجس مو دايما عدو
+                    يمكن اوقات بتيجي لتفرجينا شو الاشيا اللي بعدها بتهمنا وشو الجروح اللي بعدها محتاجه وقت حتى تتشافى
+                </p>
+
+
+                <p>
+                    يمكن هي مجرد رسايل من روحنا عم تحاول تقلنا انو في شي لازم نواجهه بدل ما نهرب منه
+                </p>
+
+
+                <p>
+                    ومهما كبرت الهواجس بيضل في حقيقه وحده اقوى منها انو الحياه لازم نعيش فيها اشيا صعبه كتير عشان نتعلم منها و نكون اقوى
+                </p>
+
+
+                <p>
+                    و مو كل سؤال لازم يكون الو جواب
+                    في اشيا لما ما نعرفها بنعيش بسلام اكتر من لما نعرفها
+                    في اشيا اذا بتتجاوب رح توجعنا اكتر بكتير من لما اتضل سر
+                </p>
+
+
+                <p>
+                    عشان هيك لما تزورك الهواجس بآخر الليل لا تصدق كل شي بتهمس فيه
+                    لانو العتمه بتخليك ترسم اشيا مو موجوده
+                    بتزرع الخوف بقلبك
+                    و بتنسيك انو بعد كل ليله في نهار رح يقتل العتمه و شمس ترسم الضحكه و تعطيك امل من جديد
+                </p>
+
+
+                <button
+                    class="back-to-contents"
+                    onclick="showContents()">
+
+                    ← Back to writings
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                 DEATH
+            ====================================================== -->
+
+            <div class="writing arabic-writing" id="death">
+
+                <h2>الموت</h2>
+
+                <div class="date">
+                    الموت · الذاكرة · الزمن
+                </div>
+
+
+                <p>
+                    الموت ما بياخد بس الي توقف قلبهن
+                    اغلب الناس بتفكر انو الموت هو لحظه
+                    لحظه بيتوقف فيها القلب وبينتهي كل شي
+                    بس يمكن الموت اعمق من هيك بكتير
+                </p>
+
+
+                <p>
+                    لان الموت ما بياخذ الشخص وبس
+                    بياخذ معه اشياء ما بتنعد
+                    بياخذ صوت كان يطمنك
+                    وضحكه كنت تحفظها
+                    وكلمات كنت مفكر انك رح تسمعها طول العمر
+                </p>
+
+
+                <p>
+                    بياخذ عادات صغيره ما كان الها قيمه وقت كانت موجوده
+                    وبتصير اغلى من اي شي بعد ما تختفي
+                </p>
+
+
+                <p>
+                    الموت غريب
+                    لانو ما بيجي لعند الشخص اللي مشي بس
+                    بيجي لعند كل اللي ضلو بعدو
+                </p>
+
+
+                <p>
+                    بيجي بصوره كرسي فاضي
+                    برقم ما عاد يرن
+                    بصوره قديمه
+                    بمناسبه ناقصها شخص
+                    وبفراغ ما حدا بيعرف يعبيه
+                </p>
+
+
+                <p>
+                    واصعب شي بالموت
+                    انو العالم بيكمل
+                    الشمس بتطلع
+                    الناس بتروح على شغلها
+                    والشوارع بتضل مليانه
+                    وكانو ما صار شي
+                </p>
+
+
+                <p>
+                    بنفس الوقت عالم كامل انهار بقلب شخص معين
+                </p>
+
+
+                <p>
+                    في ناس بتموت مره وحده
+                    وفي ناس بتموت كل يوم باشتياقها للي راحو
+                </p>
+
+
+                <p>
+                    والي بوجع اكتر
+                    انو مع الوقت ما منخاف من النسيان
+                    منخاف نتعود
+                </p>
+
+
+                <p>
+                    منخاف يمر يوم كامل من دون ما نتذكرهم
+                    ومنخاف تبهت ملامحهم بصورتنا
+                    او يخف صوتهم بذاكرتنا
+                </p>
+
+
+                <p>
+                    لان اخر شي بيضل للانسان بعد م يمشي
+                    هو مكانو بقلب اللي بحبوه
+                </p>
+
+
+                <p>
+                    ويمكن لهاد السبب الموت مو دايما عدو
+                    يمكن هو الشي الوحيد اللي بيخلينا نفهم قيمه الناس قبل ما يصيرو ذكرى
+                    وبيخلينا نعرف انو ما في شي مضمون
+                    ولا لقاء
+                    ولا وجود
+                    ولا حتى كلمه ممكن نتركها لبعدين
+                </p>
+
+
+                <p>
+                    لان في يوم من الايام
+                    رح يكون في لقاء اخير
+                    وضحكه اخيره
+                    وحوار اخير
+                    ورح نمشي من مكان معين
+                    من دون ما نعرف انو ما رح نرجعلو ابدا
+                </p>
+
+
+                <p>
+                    ويمكن اكتر فكره بتوجع عن الموت
+                    مو انو كلنا رح نموت
+                    بس انو بعد ميه سنه من هلا
+                    غالبا ما حدا رح يعرف مين كنا
+                    شو كان شكلنا
+                    شو كانت احلامنا
+                    وشو الاشياء اللي سهرتنا بالليل
+                </p>
+
+
+                <p>
+                    كانو كل هالقصص
+                    كل هالمشاعر
+                    كل هالذكريات
+                    ما مرت على هالدنيا ابدا
+                </p>
+
+
+                <p>
+                    وفجاه بتفهم قديش الانسان صغير قدام الزمن
+                    وقديش الحياه قصيره
+                    وقديش غريب اننا منعيش عمر كامل
+                    ونمشي
+                    ويكمل كل شي من بعدنا
+                </p>
+
+
+                <button
+                    class="back-to-contents"
+                    onclick="showContents()">
+
+                    ← Back to writings
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                 الثمن… أنت
+            ====================================================== -->
+
+            <div class="writing arabic-writing" id="school">
+
+                <h2>الثمن… أنت</h2>
+
+                <div class="date">
+                    الحياة · الأذى · التعلم
+                </div>
+
+
+                <p>
+                    الحياة صعبة وممكن نواجه فيها أشياء كتير بتوجع بس بآخر اليوم لازم نحاول نتعلم من كل شي مرينا فيه.
+                </p>
+
+
+                <p>
+                    ممكن نمرق بفترة تزعلنا وتكسرنا ان كان بالمدرسه، بالجامعه او بالشغل.
+                </p>
+
+
+                <p>
+                    وممكن تصير اشياء ما خطر ببالنا يوم انها تصير معنا.
+                </p>
+
+
+                <p>
+                    كان من اصعب الاشياء اني اتخطى اللي صار معي بالمدرسه.
+                    كان صعب انسى كل كلمه وكل موقف وكل شعور خلوني اعيشه.
+                </p>
+
+
+                <p>
+                    ومن وقتها صار عندي خوف من أي مكان جديد. خوف إنه يتكرر نفس اللي صار. صرت أخاف من أشياء ما عمري خفت منها قبل. ما عمري خفت الناس تسمع كلامي. ما عمري خفت الناس تشوفني بدون makeup. وما عمري خجلت من وزني. بس فجأة صرت عم بدور على أي إشي يخفيني. أي إشي يخليني أقل ظهور. كأني كنت بحاول أمسح وجودي.
+                </p>
+
+
+                <p>
+                    وجعي ما كان لأنه ما كان عندي صحاب. وجعي الحقيقي كان إنهم ما كانوا يعرفوني أصلًا ومع هيك أذوني. أذوني أكتر بكتير من إني أقدر أتحمل. كان شعور بقتل إنك كل يوم تدور على طريقة بس عشان تضل قادر تكمل. وبالآخر حسيت إنه كل شي وقف ضدي فهربت.
+                </p>
+
+
+                <p>
+                    وطول عمري كنت بكره فكرة الهروب. لأنه كنت مؤمنة إنه لما تهرب من شي رح يضل يلاحقك. وما رح يضل مجرد تجربة مرقت فيها. رح يصير كابوس بيمشي وراك وين ما تروح لحد ما يستهلكك.
+                </p>
+
+
+                <p>
+                    واليوم اكتشفت إنه يمكن رح يضل عندي نفس الخوف مع كل “أول يوم” بمكان جديد. أول يوم بمدرسة. أول يوم بشغل. أول يوم بأي بداية جديدة. لأنه في جزء مني لسه حامل كل اللي صار.
+                </p>
+
+
+                <p>
+                    ويمكن ما بقدر أرجع لورا وأغير قراري. ويمكن حتى لو رجع فيني الزمن… كنت رح آخد نفس القرار. لأنه لما الشي يوصل يأثر على صحتك ونفسيتك ويخليك كل يوم تحارب حالك قبل ما تحارب الدنيا… وقتها بصير أكبر من إنك تتحمله.
+                </p>
+
+
+                <p>
+                    عشان هيك… عمرك ما تقعد وتتحمل الأذى على أمل إنه بيوم من الأيام رح يوقف لحاله.
+                </p>
+
+
+                <p>
+                    لأنه بالنهاية… الثمن رح يكون غالي كتير.
+                </p>
+
+
+                <p>
+                    والثمن…
+                </p>
+
+
+                <p>
+                    أنت.
+                </p>
+
+
+                <button
+                    class="back-to-contents"
+                    onclick="showContents()">
+
+                    ← Back to writings
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                 MOTHERHOOD
+            ====================================================== -->
+
+            <div class="writing arabic-writing" id="motherhood">
+
+                <h2>حلم الأمومة</h2>
+
+                <div class="date">
+                    حلم · المستقبل · الأمومة
+                </div>
+
+
+                <p>
+                    من بين كل الاحلام اللي ممكن يحلم فيها الانسان
+                    في حلم ساكن بقلبي من زمان
+                    حلم بسيط بنظر الكل
+                    بس بالنسبه الي عالم كامل
+                    حلم اني اصير ام
+                </p>
+
+
+                <p>
+                    ما بعرف كيف اشرح هالشعور
+                    بس كل ما شوف بيبي صغير عم يضحك
+                    او عم يركض ببراءتو
+                    بحس بشي دافي جواتي
+                    شي بيقلي انو هاد الحلم جزء مني
+                    مو مجرد فكره رح تروح مع الايام
+                </p>
+
+
+                <p>
+                    يمكن لانو الاطفال فيهم شي نقي ما موجود بكتير اشيا بهالدنيا
+                    بيحبو من قلبهم
+                    وبيضحكو من قلبهم
+                    وبيسامحو بسرعه
+                    وبيشوفو الجمال بتفاصيل ما حدا بينتبه عليها
+                </p>
+
+
+                <p>
+                    واوقات بتخيل كيف رح يكون شعوري لما امسك اول بيبي الي
+                    لما اسمع صوتو و شوف ضحكتو بتعبي دنيتي
+                    ولما يناديني ماما
+                    كلمه صغيره
+                    بس فيها عالم كامل من الحب
+                </p>
+
+
+                <p>
+                    بتخيل كيف رح احكي معو عن احلامو
+                    وكيف رح كون اول شخص يركض لعندو لما يخاف
+                    واول شخص يفرح لنجاحو
+                    واول حضن يهربلو لما تتعبو الدنيا
+                </p>
+
+
+                <p>
+                    مو لان الامومه سهله
+                    بعرف انها تعب وخوف ومسؤوليه كبيره
+                    و ليالي كتير بلا نوم
+                    و يمكن اتضيع كتير احلام الي بس عشانه و حبي اله
+                    بس الحب اللي فيها اكبر من كل هالاشيا
+                </p>
+
+
+                <p>
+                    لانو في رابط بين الام وطفلها ما بينوصف بالكلمات
+                    رابط بيبدا قبل ما ينولد الطفل وبيضل طول العمر
+                </p>
+
+
+                <p>
+                    ويمكن اجمل شي بالحلم مو انو يكون عندي بيبي وبس
+                    اجمل شي انو يكون في شخص صغير عم يشوف الدنيا من عيوني
+                    ويتعلم الحب من قلبي
+                    والامان من حضني
+                    والقوه من دعواتي
+                </p>
+
+
+                <p>
+                    ولهالسبب كل ما بفكر بالمستقبل
+                    بشوف احلام كثير
+                    بس في حلم بيضل الاقرب لقلبي
+                    حلم اني اصير ام
+                </p>
+
+
+                <button
+                    class="back-to-contents"
+                    onclick="showContents()">
+
+                    ← Back to writings
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                 نسخة مجهولة
+            ====================================================== -->
+
+            <div class="writing arabic-writing" id="unknown-version">
+
+                <h2>نسخه مجهوله</h2>
+
+                <div class="date">
+                    الذاكرة · الماضي · التصالح مع الذات
+                </div>
+
+
+                <p>
+                    في نسخه منا ما حدا بيعرفها
+                    نسخه ما بتبين بالصور ولا بالحكي اليومي ولا بالضحكات اللي منوزعها على الناس
+                </p>
+
+
+                <p>
+                    نسخه بتعيش جواتنا بهدوء وبتعرف كل شي حاولنا نخبيه عن العالم
+                </p>
+
+
+                <p>
+                    بتعرف قديش مرق علينا ايام كنا عم نضحك فيها بس كرمال ما حدا يسال ( انت منيح؟ )
+                </p>
+
+
+                <p>
+                    وبتعرف كم مره كذبنا بس عشان عم نحاول ما ننهار
+                </p>
+
+
+                <p>
+                    في نسخه منا بتتذكر كل شي
+                    كل خيانه كل صدمه كل شي وجع قلبنا
+                    كل لحظه حسينا فيها انو ما حدا فهمنا
+                </p>
+
+
+                <p>
+                    وكل مره اضطرينا نسكت فيها لان ما كان في شي بقدر يوصف اللي جواتنا
+                </p>
+
+
+                <p>
+                    والغريب انو الزمن بيمرق على كل شي الا على هيدي المشاعر
+                    في وجع عمره سنين بس كلمه صغيره بترجعنا للماضي كانو عمرو ما خلص
+                </p>
+
+
+                <p>
+                    وفي اشخاص تركوا حياتنا من زمان بس اثرهم بعدو عايش ب اصغر تفاصيل حياتنا
+                </p>
+
+
+                <p>
+                    يمكن مو لانهم كانوا اهم ناس
+                    يمكن لانهم غيروا شي جواتنا ما رجع متل قبل
+                </p>
+
+
+                <p>
+                    في نسخه منا بعدها واقفه عند لحظه معينه
+                    عند كلمه كان لازم تنحكى وما انحكت
+                    عند حضن كان لازم يطول شوي
+                    عند شخص مشي قبل ما نفهم ليش
+                    وعند حلم كان قريب كتير وبعدين اختفى فجاه
+                </p>
+
+
+                <p>
+                    يمكن اكبر كذبه بنحكيها لحالنا هي انو نحنا نسينا
+                    الحقيقه انو نحنا ما بننسى
+                    نحنا بس منتعلم كيف نكمل حياتنا
+                </p>
+
+
+                <p>
+                    لانو مافي شي رح يوقف يستنى انو نحنا نكون مناح
+                    ف بنتعلم كيف نضحك والوجع موجود
+                    وكيف نحب بعد كل هيدا الوجع
+                    وكيف نثق بعد كل الاشياء اللي علمتنا الخوف
+                </p>
+
+
+                <p>
+                    وفي ليالي معينه لما بيهدى كل شي
+                    بتطلع هالنسخه من جواتنا
+                    وبتبلش تحكي
+                </p>
+
+
+                <p>
+                    بتذكرنا باشياء دفناها تحت مشاغل الحياه
+                    بتسالنا عن الاحلام اللي تركناها بالنص
+                    وعن الشخص اللي كنا بدنا نصيرو قبل ما تغيرنا الظروف
+                </p>
+
+
+                <p>
+                    وبتخلينا نفكر
+                    قديش من عمرنا عشنا كرمال نرضي الناس
+                    وقديش من عمرنا نسينا نسال حالنا اذا نحنا راضيين
+                </p>
+
+
+                <p>
+                    في ناس بيقضو سنين عم يبنو صوره حلوه قدام العالم
+                    بس بينسوا يبنو السلام جواتهم
+                </p>
+
+
+                <p>
+                    وبيوصلو لكل اللي بدهم ياه
+                    بس بيضل في فراغ ما بينملي
+                    لانو الروح ما بتكتفي بالنجاحات
+                    الروح بدها امان
+                </p>
+
+
+                <p>
+                    بدها احساس انك عايش الحياه اللي بتشبهك
+                    مو الحياه اللي فرضها عليك غيرك
+                </p>
+
+
+                <p>
+                    واصعب شعور مو انك تضيع بين الناس
+                    اصعب شعور انك تضيع عن حالك
+                </p>
+
+
+                <p>
+                    انك تصير ما تعرف شو بتحب
+                    وشو بدك
+                    وشو اللي كان يخليك مبسوط قبل ما يصير كل همك كيف تفيق كل يوم بلا م تكون موجوع
+                </p>
+
+
+                <p>
+                    بس يمكن الحياه مو موجوده لحتى تخلينا كاملين
+                    يمكن هي موجوده لحتى تعلمنا كيف نتعايش مع النقص
+                    وكيف نحب النسخ القديمه منا بدل ما نكرهها
+                </p>
+
+
+                <p>
+                    لان كل نسخه مرقت بحياتنا كانت عم تحاول تنقذنا بالطريقه اللي بتعرفها
+                    حتى النسخ اللي غلطت
+                    حتى النسخ اللي خافت
+                    حتى النسخ اللي اتعلقت باشخاص ما كان لازم تتعلق فيهم
+                    كلهم كانوا جزء من رحلتنا
+                </p>
+
+
+                <p>
+                    ويمكن النضج الحقيقي مو لما نصير اشخاص مختلفين
+                    يمكن النضج الحقيقي لما نتصالح مع كل النسخ اللي عاشت جوانا
+                    ونحضنها بدل ما نهرب منها
+                </p>
+
+
+                <p>
+                    ولما يجي يوم ونطلع ورا على هيدا الماضي
+                    ما يكون اهم سؤال شو حققنا ولا شو خسرنا
+                    بس يكون السؤال
+                </p>
+
+
+                <p>
+                    تعلمنا من كل شي مرق؟
+                    عرفنا نعدي هيدي الايام الصعبه؟
+                    و حبينا حالنا قبل م حدا يحبنا؟
+                </p>
+
+
+                <button
+                    class="back-to-contents"
+                    onclick="showContents()">
+
+                    ← Back to writings
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                 WHEN OUR STARS ALIGN
+            ====================================================== -->
+
+            <div class="writing" id="stars">
+
+                <h2>When Our Stars Align</h2>
+
+                <div class="date">
+                    Poetry
+                </div>
+
+
+                <p class="poem">
+                    I would die a hundred times until I find myself in your arms<br>
+                    one year or three more<br>
+                    I don’t care how long it takes<br>
+                    all I want is your lips to taste<br>
+                    and under the moon I see your eyes shine brighter than the sunshine<br>
+                    and maybe it’s just a dream my restless heart designed<br>
+                    a gentle echo in the dark of hopes I’m too afraid to leave behind<br>
+                    maybe it’s the midnight air playing tricks upon my mind<br>
+                    turning every lonely thought into a sign that you are mine<br>
+                    but still I would wait through seasons changing<br>
+                    through autumn leaves and winter snow<br>
+                    through silent springs and summer storms<br>
+                    no matter how the wild winds blow<br>
+                    because somewhere in this universe beneath the same wide silver sky<br>
+                    if fate is kind and time is patient our two lost stars will align<br>
+                    and when they do I’ll know at last this wandering heart was never wrong<br>
+                    for every mile and every moment was leading me to you all along
+                </p>
+
+
+                <button
+                    class="back-to-contents"
+                    onclick="showContents()">
+
+                    ← Back to writings
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================================
+                 أَتُراني أَهواكَ
+            ====================================================== -->
+
+            <div class="writing arabic-writing" id="memory">
+
+                <h2>أَتُراني أَهواكَ أَم أَهْوى ذِكراكَ</h2>
+
+                <div class="date">
+                    Poetry
+                </div>
+
+
+                <p class="poem">
+
+                    أَتُراني أَهواكَ أَم أَهْوى ذِكراكَ<br><br>
+
+                    أَمْ أَنَّني أَحْبَبْتُ صُورَةً رَسَمَها قَلْبي لَكَ حَتّى صَدَّقْتُها<br>
+                    فَصِرْتُ كُلَّما اشْتَقْتُ إِلَيْكَ عُدْتُ إِلَيْها لا إِلَيْكَ<br><br>
+
+                    لا أَدْري أَأَحِنُّ إِلى مَلامِحِكَ<br>
+                    أَمْ إِلى ذٰلِكَ الشُّعورِ الَّذي كُنْتُ أَعيشُهُ وَأَنا بِقُرْبِكَ<br><br>
+
+                    أَأَشْتاقُ صَوْتَكَ<br>
+                    أَمْ أَشْتاقُ الطُّمَأْنينَةَ الَّتي كُنْتُ أَظُنُّ أَنَّ صَوْتَكَ يَمْنَحُني إِيّاها<br><br>
+
+                    لَقَدْ رَحَلَتِ الأَيّامُ<br>
+                    وَتَغَيَّرَتِ الوُجوهُ<br>
+                    وَبَقِيَ سُؤالٌ واحِدٌ يُطارِدُني كُلَّما أَقْبَلَ اللَّيْلُ<br><br>
+
+                    أَتُراني أَهواكَ<br>
+                    أَمْ أَهْوى ذِكراكَ<br><br>
+
+                    فَإِنْ كُنْتُ أُحِبُّكَ حَقًّا<br>
+                    فَلِماذا كُلَّما لَقِيتُكَ في خَيالي وَجَدْتُكَ مُخْتَلِفًا عَمَّنْ تَرَكَنِي<br><br>
+
+                    وَإِنْ كُنْتُ لا أُحِبُّ إِلّا الذِّكْرى<br>
+                    فَلِماذا يُؤْلِمُني غِيابُكَ إِلى اليَوْمِ<br><br>
+
+                    غَريبٌ أَمْرُ القَلْبِ<br>
+                    يُتْقِنُ حِفْظَ التَّفاصِيلِ أَكْثَرَ مِمّا يُتْقِنُ النِّسْيانَ<br><br>
+
+                    يَتَذَكَّرُ ضِحْكَةً عابِرَةً<br>
+                    وَكَلِمَةً قيلَتْ عَلَى اسْتِحْياءٍ<br>
+                    وَنَظْرَةً لَمْ تَدُمْ إِلّا لَحْظَةً<br><br>
+
+                    ثُمَّ يَعْجِزُ عَنْ تَذَكُّرِ سَبَبِ الفِراقِ<br>
+                    وَكَأَنَّ الذّاكِرَةَ تَتَآمَرُ عَلَيْنا<br>
+                    فَتُبْقِي الجَميلَ<br>
+                    وَتَدْفِنُ كُلَّ ما كانَ يَسْتَحِقُّ الرَّحيلَ<br><br>
+
+                    أَتُراني أُحِبُّكَ<br>
+                    أَمْ أُحِبُّ نَفْسِي حِينَ كُنْتُ مَعَكَ<br><br>
+
+                    تِلْكَ النُّسْخَةَ الَّتي كانَتْ تُؤْمِنُ بِالغَدِ<br>
+                    وَتَضْحَكُ بِلا خَوْفٍ<br>
+                    وَتَنْتَظِرُ لِقاءَكَ كَمَا يَنْتَظِرُ الظَّمْآنُ أَوَّلَ قَطْرَةِ مَطَرٍ<br><br>
+
+                    رُبَّما لا أَشْتاقُ إِلَيْكَ وَحْدَكَ<br>
+                    بَلْ أَشْتاقُ إِلَى الزَّمَنِ الَّذي كُنْتَ فيهِ جُزْءًا مِنْ أَيّامي<br>
+                    إِلى قَلْبي قَبْلَ أَنْ يَعْرِفَ كَيْفَ يَبْدو الفَقْدُ<br><br>
+
+                    وَقَبْلَ أَنْ يَتَعَلَّمَ أَنَّ بَعْضَ الأَبْوابِ إِذا أُغْلِقَتْ<br>
+                    لا يَفْتَحُها الحَنينُ<br>
+                    وَلا تُعيدُها الدُّموعُ<br>
+                    وَلا يُغَيِّرُها طُولُ الانْتِظارِ<br><br>
+
+                    كَمْ هُوَ قاسٍ أَنْ يَحْتارَ الإِنْسانُ بَيْنَ شَخْصٍ أَحَبَّهُ<br>
+                    وَذِكْرَى لَمْ تَسْتَأْذِنْ قَبْلَ أَنْ تَسْكُنَهُ<br><br>
+
+                    فَقَدْ يَرْحَلُ الأَشْخاصُ<br>
+                    لٰكِنَّ آثَارَهُمْ تَبْقَى<br>
+                    كَالعِطْرِ بَعْدَ غِيابِ صاحِبِهِ<br>
+                    وَكَالنُّجومِ الَّتي لا نَرى نُورَها إِلّا بَعْدَ أَنْ تَكُونَ قَدِ انْطَفَأَتْ مُنْذُ زَمَنٍ<br><br>
+
+                    وَلَعَلَّ أَصْعَبَ ما فِي الأَمْرِ<br>
+                    أَنَّني كُلَّما ظَنَنْتُ أَنَّني تَجاوَزْتُكَ<br>
+                    وَجَدْتُكَ مُخْتَبِئًا في أُغْنِيَةٍ<br>
+                    أَوْ في شارِعٍ<br>
+                    أَوْ في رائِحَةٍ عابِرَةٍ<br>
+                    أَوْ في دُعاءٍ خَرَجَ مِنْ قَلْبي دُونَ أَنْ أَشْعُرَ<br><br>
+
+                    فَأَعُودُ لِأَسْأَلَ نَفْسي مِنْ جَديدٍ<br>
+                    أَتُراني أَهواكَ<br>
+                    أَمْ أَهْوى ذِكراكَ<br><br>
+
+                    وَهَلْ كُنْتَ أَنْتَ يَوْمًا كَما أَحْبَبْتُ<br>
+                    أَمْ أَنَّ قَلْبي هُوَ الَّذي مَنَحَكَ كُلَّ هٰذا الجَمالَ<br><br>
+
+                    ثُمَّ بَقِيَ يُعاقِبُ نَفْسَهُ<br>
+                    كُلَّما اكْتَشَفَ أَنَّ الأَحْلامَ<br>
+                    لَيْسَتْ دائِمًا حَقيقَةً.
+
+                </p>
+
+
+                <button
+                    class="back-to-contents"
+                    onclick="showContents()">
+
+                    ← Back to writings
+
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =====================================================
+             FRONT COVER
+        ====================================================== -->
+
+        <div class="cover" onclick="openBook()">
+
+            <div class="cover-content">
+
+                <h1>My Book</h1>
+
+                <div class="line"></div>
+
+                <div class="heart">
+                    ♡
+                </div>
+
+                <div class="click">
+                    CLICK TO OPEN
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- BACK TO HOME -->
+
+    <a href="index.html" class="home-back">
+        ← Back
+    </a>
+
+
+    <script>
+
+
+        /* =========================
+           OPEN BOOK
+        ========================== */
+
+        function openBook() {
+
+            const book =
+                document.getElementById("book");
+
+            book.classList.add("open");
+
+        }
+
+
+        /* =========================
+           SHOW WRITING
+        ========================== */
+
+        function showWriting(id) {
+
+            const contents =
+                document.getElementById("contents");
+
+            const writings =
+                document.querySelectorAll(".writing");
+
+
+            contents.style.display = "none";
+
+
+            writings.forEach(function(writing) {
+
+                writing.classList.remove("active");
+
+            });
+
+
+            const selected =
+                document.getElementById(id);
+
+
+            selected.classList.add("active");
+
+
+            document
+                .querySelector(".pages")
+                .scrollTop = 0;
+
+        }
+
+
+        /* =========================
+           BACK TO CONTENTS
+        ========================== */
+
+        function showContents() {
+
+            const contents =
+                document.getElementById("contents");
+
+            const writings =
+                document.querySelectorAll(".writing");
+
+
+            writings.forEach(function(writing) {
+
+                writing.classList.remove("active");
+
+            });
+
+
+            contents.style.display = "block";
+
+
+            document
+                .querySelector(".pages")
+                .scrollTop = 0;
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>

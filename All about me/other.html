@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Websites | Projects</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            min-height: 100vh;
+
+            background: #000000;
+
+            color: white;
+
+            font-family: Arial, sans-serif;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            overflow: hidden;
+
+        }
+
+
+        /* MAIN */
+
+        .empty-page {
+
+            min-height: 100vh;
+
+            width: 100%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+        }
+
+
+        /* LAPTOP */
+
+        .laptop {
+
+            width: 500px;
+
+            position: relative;
+
+            filter:
+                drop-shadow(
+                    0 0 35px
+                    rgba(247, 182, 210, 0.25)
+                );
+
+        }
+
+
+        /* SCREEN */
+
+        .screen {
+
+            width: 420px;
+
+            height: 270px;
+
+            margin: auto;
+
+            background: #050505;
+
+            border: 7px solid #f7b6d2;
+
+            border-radius: 22px 22px 10px 10px;
+
+            box-shadow:
+
+                0 0 25px
+                rgba(247, 182, 210, 0.45),
+
+                inset 0 0 35px
+                rgba(247, 182, 210, 0.08);
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            position: relative;
+
+        }
+
+
+        /* CAMERA */
+
+        .camera {
+
+            position: absolute;
+
+            top: -12px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 9px;
+
+            height: 9px;
+
+            background: #f7b6d2;
+
+            border-radius: 50%;
+
+        }
+
+
+        /* CONTENT INSIDE LAPTOP */
+
+        .screen-content {
+
+            text-align: center;
+
+            padding: 20px;
+
+        }
+
+
+        .screen-content .heart {
+
+            color: #f7b6d2;
+
+            font-size: 42px;
+
+            margin-bottom: 8px;
+
+            text-shadow:
+                0 0 15px
+                rgba(247, 182, 210, 0.8);
+
+        }
+
+
+        .screen-content h1 {
+
+            color: #f7b6d2;
+
+            font-size: 27px;
+
+            font-weight: 500;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .screen-content p {
+
+            color: #f0c9da;
+
+            font-size: 14px;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .screen-content span {
+
+            color: #c2185b;
+
+            font-size: 13px;
+
+        }
+
+
+        /* LAPTOP BASE */
+
+        .base {
+
+            width: 500px;
+
+            height: 30px;
+
+            background: linear-gradient(
+
+                to bottom,
+
+                #f7b6d2,
+
+                #d98aaa
+
+            );
+
+            border-radius:
+
+                5px 5px 35px 35px;
+
+            position: relative;
+
+        }
+
+
+        /* KEYBOARD */
+
+        .keyboard {
+
+            position: absolute;
+
+            width: 280px;
+
+            height: 10px;
+
+            left: 50%;
+
+            top: 6px;
+
+            transform: translateX(-50%);
+
+            background:
+
+                repeating-linear-gradient(
+
+                    90deg,
+
+                    #111 0px,
+
+                    #111 9px,
+
+                    transparent 9px,
+
+                    transparent 14px
+
+                );
+
+            opacity: 0.7;
+
+        }
+
+
+        /* TRACKPAD */
+
+        .trackpad {
+
+            position: absolute;
+
+            width: 70px;
+
+            height: 8px;
+
+            left: 50%;
+
+            bottom: 2px;
+
+            transform: translateX(-50%);
+
+            background: #111;
+
+            border-radius: 4px;
+
+            opacity: 0.6;
+
+        }
+
+
+        /* BACK BUTTON */
+
+        .back {
+
+            margin-top: 45px;
+
+            padding: 13px 32px;
+
+            border: 1px solid #f7b6d2;
+
+            background: transparent;
+
+            color: #f7b6d2;
+
+            border-radius: 50px;
+
+            text-decoration: none;
+
+            font-weight: 600;
+
+            transition: 0.3s ease;
+
+        }
+
+
+        .back:hover {
+
+            background: #f7b6d2;
+
+            color: #000000;
+
+            box-shadow:
+
+                0 0 25px
+                rgba(247, 182, 210, 0.5);
+
+            transform: scale(1.05);
+
+        }
+
+
+        /* MOBILE */
+
+        @media (max-width: 600px) {
+
+            .laptop {
+
+                transform: scale(0.65);
+
+            }
+
+            .back {
+
+                margin-top: 10px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <main class="empty-page">
+
+
+        <div class="laptop">
+
+
+            <!-- LAPTOP SCREEN -->
+
+            <div class="screen">
+
+
+                <div class="camera"></div>
+
+
+                <!-- EVERYTHING HERE IS INSIDE THE LAPTOP -->
+
+                <div class="screen-content">
+
+
+                    <div class="heart">
+                        ♡
+                    </div>
+
+
+                    <h1>
+                        Nothing to show yet
+                    </h1>
+
+
+                    <p>
+                        This project is still in the making...
+                    </p>
+
+
+                    <span>
+                        
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+            <!-- LAPTOP BASE -->
+
+            <div class="base">
+
+                <div class="keyboard"></div>
+
+                <div class="trackpad"></div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- BACK BUTTON -->
+
+        <a href="projects.html" class="back">
+            ← Back to Projects
+        </a>
+
+
+    </main>
+
+
+</body>
+
+</html>

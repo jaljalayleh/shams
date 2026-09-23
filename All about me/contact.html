@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact Me</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            background: #000;
+
+            font-family: Arial, sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            color: #000;
+        }
+
+
+        /* =========================
+           BUSINESS CARD
+        ========================= */
+
+        .card {
+            width: 520px;
+            max-width: 90%;
+
+            background: #f7b6d2;
+
+            padding: 45px;
+
+            border-radius: 28px;
+
+            box-shadow:
+                0 0 45px rgba(247, 182, 210, 0.3);
+
+            text-align: center;
+        }
+
+
+        /* =========================
+           NAME
+        ========================= */
+
+        .name {
+            font-family: Georgia, serif;
+
+            font-size: 42px;
+
+            margin: 0;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* =========================
+           TITLE
+        ========================= */
+
+        .title {
+            margin-top: 10px;
+
+            font-size: 16px;
+
+            color: #c2185b;
+
+            letter-spacing: 1.5px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           DIVIDER
+        ========================= */
+
+        .line {
+            width: 100px;
+            height: 3px;
+
+            background: #c2185b;
+
+            margin: 28px auto;
+        }
+
+
+        /* =========================
+           CONTACT ITEMS
+        ========================= */
+
+        .contact-item {
+            margin: 20px 0;
+        }
+
+
+        .contact-label {
+            font-size: 13px;
+
+            text-transform: uppercase;
+
+            letter-spacing: 2px;
+
+            color: #555;
+
+            margin-bottom: 7px;
+        }
+
+
+        .contact-link {
+            display: inline-block;
+
+            color: #000;
+
+            text-decoration: none;
+
+            font-size: 19px;
+
+            font-weight: bold;
+
+            padding: 12px 22px;
+
+            border-radius: 50px;
+
+            transition: 0.3s ease;
+        }
+
+
+        .contact-link:hover {
+            background: #c2185b;
+
+            color: white;
+
+            transform: scale(1.04);
+        }
+
+
+        /* =========================
+           COPY BUTTON
+        ========================= */
+
+        .copy-button {
+            border: none;
+
+            background: transparent;
+
+            color: #c2185b;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            margin-top: 5px;
+        }
+
+
+        .copy-button:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        .footer {
+            margin-top: 30px;
+
+            font-size: 14px;
+
+            color: #555;
+        }
+
+
+        /* =========================
+           BACK BUTTON
+        ========================= */
+
+        .back {
+            position: fixed;
+
+            bottom: 25px;
+            left: 25px;
+
+            padding: 12px 25px;
+
+            background: #f7b6d2;
+
+            color: #000;
+
+            text-decoration: none;
+
+            border-radius: 50px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .back:hover {
+            background: #c2185b;
+
+            color: white;
+
+            transform: scale(1.05);
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 600px) {
+
+            .card {
+                padding: 30px 20px;
+            }
+
+            .name {
+                font-size: 32px;
+            }
+
+            .title {
+                font-size: 13px;
+            }
+
+            .contact-link {
+                font-size: 16px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <!-- BUSINESS CARD -->
+
+    <div class="card">
+
+        <h1 class="name">
+            Joud Aljalayleh
+        </h1>
+
+
+        <div class="title">
+     ARTIFICIAL INTELLIGENCE SPECIALIST
+        </div>
+
+
+        <div class="line"></div>
+
+
+        <!-- EMAIL -->
+
+        <div class="contact-item">
+
+            <div class="contact-label">
+                Email
+            </div>
+
+            <a
+                href="mailto:jaljalayleh@gmail.com"
+                class="contact-link"
+            >
+                📧 jaljalayleh@gmail.com
+            </a>
+
+            <br>
+
+            <button
+                class="copy-button"
+                onclick="copyText('jaljalayleh@gmail.com')"
+            >
+                Copy email
+            </button>
+
+        </div>
+
+
+        <!-- PHONE -->
+
+        <div class="contact-item">
+
+            <div class="contact-label">
+                Phone
+            </div>
+
+            <a
+                href="tel:+4917623244456"
+                class="contact-link"
+            >
+                📱 017632344456
+            </a>
+
+            <br>
+
+            <button
+                class="copy-button"
+                onclick="copyText('017623244456')"
+            >
+                Copy number
+            </button>
+
+        </div>
+
+
+        <div class="footer">
+            Feel free to get in touch 🩷
+        </div>
+
+    </div>
+
+
+    <!-- BACK BUTTON -->
+
+    <a href="index.html" class="back">
+        ← Back
+    </a>
+
+
+    <!-- COPY FUNCTION -->
+
+    <script>
+
+        function copyText(text) {
+
+            navigator.clipboard.writeText(text);
+
+            alert("Copied! 🩷");
+
+        }
+
+    </script>
+
+
+</body>
+</html>

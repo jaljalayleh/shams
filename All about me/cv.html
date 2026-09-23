@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My CV</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+
+            background: #000;
+
+            font-family: Arial, sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            overflow: hidden;
+        }
+
+
+        /* =================================
+           MAIN LAYOUT
+        ================================= */
+
+        .scene {
+            width: 95%;
+            max-width: 1100px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 50px;
+        }
+
+
+        /* =================================
+           GIRL
+        ================================= */
+
+        .girl {
+            width: 470px;
+            height: 590px;
+
+            flex-shrink: 0;
+
+            transition: 0.4s ease;
+        }
+
+        .girl:hover {
+            transform: translateY(-8px);
+        }
+
+
+        .girl svg {
+            width: 100%;
+            height: 100%;
+
+            overflow: visible;
+        }
+
+
+        /* =================================
+           SPEECH SECTION
+        ================================= */
+
+        .speech-area {
+            width: 390px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+
+        /* =================================
+           SPEECH BUBBLE
+        ================================= */
+
+        .speech {
+            position: relative;
+
+            width: 370px;
+
+            padding: 32px;
+
+            background: #f7b6d2;
+
+            color: #000;
+
+            border-radius: 30px;
+
+            text-align: center;
+
+            font-size: 21px;
+
+            line-height: 1.5;
+
+            box-shadow:
+                0 0 35px rgba(247, 182, 210, 0.25);
+
+            animation: floating 3s ease-in-out infinite;
+        }
+
+
+        .speech::before {
+            content: "";
+
+            position: absolute;
+
+            left: -28px;
+            top: 55px;
+
+            border-top: 18px solid transparent;
+            border-bottom: 18px solid transparent;
+            border-right: 32px solid #f7b6d2;
+        }
+
+
+        @keyframes floating {
+
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+
+        .hello {
+            color: #c2185b;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            letter-spacing: 2px;
+
+            margin-bottom: 10px;
+
+            text-transform: uppercase;
+        }
+
+
+        /* =================================
+           CV BUTTON
+        ================================= */
+
+        .cv-button {
+            display: inline-block;
+
+            margin-top: 25px;
+
+            padding: 15px 38px;
+
+            background: #000;
+
+            color: #f7b6d2;
+
+            text-decoration: none;
+
+            border-radius: 50px;
+
+            font-size: 18px;
+
+            font-weight: bold;
+
+            transition: 0.3s ease;
+        }
+
+
+        .cv-button:hover {
+            background: #c2185b;
+
+            color: white;
+
+            transform: scale(1.08);
+        }
+
+
+        .note {
+            margin-top: 15px;
+
+            color: #777;
+
+            font-size: 12px;
+        }
+
+
+        /* =================================
+           BACK BUTTON
+        ================================= */
+
+        .back {
+            position: fixed;
+
+            bottom: 25px;
+            left: 25px;
+
+            padding: 12px 25px;
+
+            background: #f7b6d2;
+
+            color: #000;
+
+            text-decoration: none;
+
+            border-radius: 50px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+        }
+
+
+        .back:hover {
+            background: #c2185b;
+
+            color: white;
+
+            transform: scale(1.05);
+        }
+
+
+        /* =================================
+           MOBILE
+        ================================= */
+
+        @media (max-width: 850px) {
+
+            body {
+                overflow-y: auto;
+
+                padding: 30px 0;
+            }
+
+            .scene {
+                flex-direction: column;
+
+                gap: 5px;
+            }
+
+            .girl {
+                width: 360px;
+                height: 450px;
+            }
+
+            .speech-area {
+                width: 90%;
+            }
+
+            .speech {
+                width: 100%;
+
+                font-size: 18px;
+            }
+
+            .speech::before {
+                display: none;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <div class="scene">
+
+
+        <!-- ==================================================
+             LITTLE GIRL
+             EVERYTHING HERE IS PART OF THE CODE
+        ================================================== -->
+
+        <div class="girl">
+
+            <svg
+                viewBox="0 0 500 620"
+                xmlns="http://www.w3.org/2000/svg"
+            >
+
+
+                <!-- ==========================================
+                     SOFT GLOW
+                =========================================== -->
+
+                <defs>
+
+                    <radialGradient id="pinkGlow">
+
+                        <stop
+                            offset="0%"
+                            stop-color="#f7b6d2"
+                            stop-opacity="0.35"
+                        />
+
+                        <stop
+                            offset="100%"
+                            stop-color="#f7b6d2"
+                            stop-opacity="0"
+                        />
+
+                    </radialGradient>
+
+
+                    <linearGradient
+                        id="skin"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                    >
+
+                        <stop
+                            offset="0%"
+                            stop-color="#ffe0cd"
+                        />
+
+                        <stop
+                            offset="100%"
+                            stop-color="#f2bda8"
+                        />
+
+                    </linearGradient>
+
+
+                    <linearGradient
+                        id="hair"
+                        x1="0"
+                        y1="0"
+                        x2="1"
+                        y2="1"
+                    >
+
+                        <stop
+                            offset="0%"
+                            stop-color="#281b1b"
+                        />
+
+                        <stop
+                            offset="50%"
+                            stop-color="#130e0f"
+                        />
+
+                        <stop
+                            offset="100%"
+                            stop-color="#352020"
+                        />
+
+                    </linearGradient>
+
+
+                    <linearGradient
+                        id="suit"
+                        x1="0"
+                        y1="0"
+                        x2="1"
+                        y2="1"
+                    >
+
+                        <stop
+                            offset="0%"
+                            stop-color="#202020"
+                        />
+
+                        <stop
+                            offset="100%"
+                            stop-color="#050505"
+                        />
+
+                    </linearGradient>
+
+                </defs>
+
+
+                <!-- Glow behind girl -->
+
+                <ellipse
+                    cx="250"
+                    cy="300"
+                    rx="220"
+                    ry="270"
+                    fill="url(#pinkGlow)"
+                />
+
+
+                <!-- ==========================================
+                     HAIR BACK
+                =========================================== -->
+
+                <path
+                    d="
+                    M105 245
+                    C65 185 75 105 140 75
+                    C180 15 260 20 300 48
+                    C375 25 435 90 420 155
+                    C455 205 430 285 395 320
+                    C410 390 365 445 315 455
+                    L170 455
+                    C105 420 75 355 105 300
+                    Z
+                    "
+                    fill="url(#hair)"
+                />
+
+
+                <!-- CURLS LEFT -->
+
+                <circle
+                    cx="105"
+                    cy="150"
+                    r="55"
+                    fill="#171112"
+                />
+
+                <circle
+                    cx="92"
+                    cy="215"
+                    r="52"
+                    fill="#201416"
+                />
+
+                <circle
+                    cx="100"
+                    cy="285"
+                    r="55"
+                    fill="#171112"
+                />
+
+                <circle
+                    cx="125"
+                    cy="350"
+                    r="55"
+                    fill="#211516"
+                />
+
+                <circle
+                    cx="155"
+                    cy="410"
+                    r="48"
+                    fill="#171112"
+                />
+
+
+                <!-- CURLS RIGHT -->
+
+                <circle
+                    cx="395"
+                    cy="150"
+                    r="55"
+                    fill="#171112"
+                />
+
+                <circle
+                    cx="410"
+                    cy="215"
+                    r="52"
+                    fill="#201416"
+                />
+
+                <circle
+                    cx="405"
+                    cy="285"
+                    r="55"
+                    fill="#171112"
+                />
+
+                <circle
+                    cx="380"
+                    cy="350"
+                    r="55"
+                    fill="#211516"
+                />
+
+                <circle
+                    cx="350"
+                    cy="410"
+                    r="48"
+                    fill="#171112"
+                />
+
+
+                <!-- ==========================================
+                     FACE
+                =========================================== -->
+
+                <ellipse
+                    cx="250"
+                    cy="215"
+                    rx="125"
+                    ry="140"
+                    fill="url(#skin)"
+                />
+
+
+                <!-- ==========================================
+                     HAIR ON TOP
+                =========================================== -->
+
+                <path
+                    d="
+                    M115 160
+                    C100 95 150 45 215 55
+                    C245 15 325 35 350 80
+                    C390 85 410 125 395 165
+                    C370 140 345 120 315 105
+                    C280 125 235 130 195 115
+                    C170 135 145 155 115 160
+                    Z
+                    "
+                    fill="url(#hair)"
+                />
+
+
+                <!-- Curly hair strands -->
+
+                <path
+                    d="M135 105 C105 130 125 165 150 170"
+                    fill="none"
+                    stroke="#4b2b2b"
+                    stroke-width="12"
+                    stroke-linecap="round"
+                />
+
+                <path
+                    d="M365 105 C395 135 380 165 355 175"
+                    fill="none"
+                    stroke="#4b2b2b"
+                    stroke-width="12"
+                    stroke-linecap="round"
+                />
+
+                <path
+                    d="M165 70 C145 100 165 125 185 135"
+                    fill="none"
+                    stroke="#533131"
+                    stroke-width="10"
+                    stroke-linecap="round"
+                />
+
+                <path
+                    d="M335 70 C355 100 335 125 315 135"
+                    fill="none"
+                    stroke="#533131"
+                    stroke-width="10"
+                    stroke-linecap="round"
+                />
+
+
+                <!-- ==========================================
+                     EYEBROWS
+                =========================================== -->
+
+                <path
+                    d="M160 178 Q195 155 220 175"
+                    fill="none"
+                    stroke="#2a1818"
+                    stroke-width="9"
+                    stroke-linecap="round"
+                />
+
+                <path
+                    d="M280 175 Q310 155 340 178"
+                    fill="none"
+                    stroke="#2a1818"
+                    stroke-width="9"
+                    stroke-linecap="round"
+                />
+
+
+                <!-- ==========================================
+                     LEFT EYE
+                =========================================== -->
+
+                <ellipse
+                    cx="195"
+                    cy="220"
+                    rx="40"
+                    ry="48"
+                    fill="white"
+                />
+
+                <ellipse
+                    cx="198"
+                    cy="228"
+                    rx="27"
+                    ry="35"
+                    fill="#3b2724"
+                />
+
+                <ellipse
+                    cx="198"
+                    cy="235"
+                    rx="17"
+                    ry="24"
+                    fill="#100d0d"
+                />
+
+                <circle
+                    cx="188"
+                    cy="215"
+                    r="9"
+                    fill="white"
+                />
+
+                <!-- left eyelashes -->
+
+                <path
+                    d="M158 190 L148 180"
+                    stroke="#130d0d"
+                    stroke-width="6"
+                    stroke-linecap="round"
+                />
+
+                <path
+                    d="M165 185 L158 172"
+                    stroke="#130d0d"
+                    stroke-width="6"
+                    stroke-linecap="round"
+                />
+
+                <path
+                    d="M174 181 L170 168"
+                    stroke="#130d0d"
+                    stroke-width="5"
+                    stroke-linecap="round"
+                />
+
+
+                <!-- ==========================================
+                     RIGHT EYE
+                =========================================== -->
+
+                <ellipse
+                    cx="305"
+                    cy="220"
+                    rx="40"
+                    ry="48"
+                    fill="white"
+                />
+
+                <ellipse
+                    cx="302"
+                    cy="228"
+                    rx="27"
+                    ry="35"
+                    fill="#3b2724"
+                />
+
+                <ellipse
+                    cx="302"
+                    cy="235"
+                    rx="17"
+                    ry="24"
+                    fill="#100d0d"
+                />
+
+                <circle
+                    cx="292"
+                    cy="215"
+                    r="9"
+                    fill="white"
+                />
+
+                <!-- right eyelashes -->
+
+                <path
+                    d="M342 190 L352 180"
+                    stroke="#130d0d"
+                    stroke-width="6"
+                    stroke-linecap="round"
+                />
+
+                <path
+                    d="M335 185 L342 172"
+                    stroke="#130d0d"
+                    stroke-width="6"
+                    stroke-linecap="round"
+                />
+
+                <path
+                    d="M326 181 L330 168"
+                    stroke="#130d0d"
+                    stroke-width="5"
+                    stroke-linecap="round"
+                />
+
+
+                <!-- ==========================================
+                     ROSY CHEEKS
+                =========================================== -->
+
+                <ellipse
+                    cx="155"
+                    cy="275"
+                    rx="30"
+                    ry="15"
+                    fill="#f48c9e"
+                    opacity="0.65"
+                />
+
+                <ellipse
+                    cx="345"
+                    cy="275"
+                    rx="30"
+                    ry="15"
+                    fill="#f48c9e"
+                    opacity="0.65"
+                />
+
+
+                <!-- ==========================================
+                     NOSE
+                =========================================== -->
+
+                <path
+                    d="M250 235 Q238 265 250 268 Q262 265 250 235"
+                    fill="#e99c8a"
+                    opacity="0.7"
+                />
+
+
+                <!-- ==========================================
+                     SMILE
+                =========================================== -->
+
+                <path
+                    d="M225 285 Q250 310 275 285"
+                    fill="none"
+                    stroke="#c85b72"
+                    stroke-width="6"
+                    stroke-linecap="round"
+                />
+
+
+                <!-- ==========================================
+                     NECK
+                =========================================== -->
+
+                <path
+                    d="
+                    M220 325
+                    L220 380
+                    L280 380
+                    L280 325
+                    Z
+                    "
+                    fill="url(#skin)"
+                />
+
+
+                <!-- ==========================================
+                     BODY / BLACK SUIT
+                =========================================== -->
+
+                <path
+                    d="
+                    M165 365
+                    Q250 340 335 365
+                    L395 570
+                    L105 570
+                    Z
+                    "
+                    fill="url(#suit)"
+                />
+
+
+                <!-- LEFT SUIT LAPEL -->
+
+                <path
+                    d="
+                    M215 365
+                    L175 410
+                    L225 470
+                    L250 390
+                    Z
+                    "
+                    fill="#2c2c2c"
+                />
+
+
+                <!-- RIGHT SUIT LAPEL -->
+
+                <path
+                    d="
+                    M285 365
+                    L325 410
+                    L275 470
+                    L250 390
+                    Z
+                    "
+                    fill="#2c2c2c"
+                />
+
+
+                <!-- WHITE SHIRT -->
+
+                <path
+                    d="
+                    M220 365
+                    L250 405
+                    L280 365
+                    L270 455
+                    L230 455
+                    Z
+                    "
+                    fill="#f4f4f4"
+                />
+
+
+                <!-- PINK TIE -->
+
+                <path
+                    d="
+                    M250 390
+                    L262 425
+                    L250 480
+                    L238 425
+                    Z
+                    "
+                    fill="#c2185b"
+                />
+
+
+                <!-- ==========================================
+                     ARM + HAND
+                =========================================== -->
+
+                <path
+                    d="
+                    M335 400
+                    Q370 425 345 485
+                    Q320 505 300 470
+                    L315 430
+                    Z
+                    "
+                    fill="#111"
+                />
+
+
+                <!-- Hand touching cheek -->
+
+                <ellipse
+                    cx="330"
+                    cy="365"
+                    rx="25"
+                    ry="38"
+                    transform="rotate(-30 330 365)"
+                    fill="url(#skin)"
+                />
+
+
+                <!-- Fingers -->
+
+                <path
+                    d="M315 350 Q330 340 345 355"
+                    fill="none"
+                    stroke="#d99b89"
+                    stroke-width="4"
+                    stroke-linecap="round"
+                />
+
+
+                <!-- ==========================================
+                     OTHER ARM
+                =========================================== -->
+
+                <path
+                    d="
+                    M165 400
+                    Q130 430 155 505
+                    L205 555
+                    L225 520
+                    L190 470
+                    L210 430
+                    Z
+                    "
+                    fill="#111"
+                />
+
+
+                <!-- ==========================================
+                     LITTLE PINK HEARTS
+                =========================================== -->
+
+                <text
+                    x="80"
+                    y="130"
+                    font-size="30"
+                    fill="#f7b6d2"
+                >
+                    ♡
+                </text>
+
+                <text
+                    x="405"
+                    y="210"
+                    font-size="25"
+                    fill="#f7b6d2"
+                >
+                    ✦
+                </text>
+
+                <text
+                    x="80"
+                    y="380"
+                    font-size="20"
+                    fill="#c2185b"
+                >
+                    ✦
+                </text>
+
+            </svg>
+
+        </div>
+
+
+        <!-- ==========================================
+             SPEECH BUBBLE
+        =========================================== -->
+
+        <div class="speech-area">
+
+            <div class="speech">
+
+                <div class="hello">
+                    Hey there!
+                </div>
+
+                you look interested...
+
+                <br>
+
+                <strong>
+                 check out my CV  🩷
+                </strong>
+
+                <br>
+
+                <a
+                    href="my-cv.pdf"
+                    class="cv-button"
+                    target="_blank"
+                >
+                    📄 View My CV →
+                </a>
+
+            </div>
+
+
+            <div class="note">
+                Click the button to view my CV
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==========================================
+         BACK BUTTON
+    =========================================== -->
+
+    <a
+        href="index.html"
+        class="back"
+    >
+        ← Back
+    </a>
+
+
+</body>
+</html>

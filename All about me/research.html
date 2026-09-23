@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Research</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+
+            background: black;
+
+            color: white;
+
+            height: 100vh;
+
+            overflow: hidden;
+
+            font-family: Arial, sans-serif;
+        }
+
+
+        /* =========================
+           LAMP
+        ========================= */
+
+        .lamp {
+
+            position: absolute;
+
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+
+            width: 220px;
+            height: 350px;
+        }
+
+
+        .shade {
+
+            position: absolute;
+
+            top: 0;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 200px;
+            height: 120px;
+
+            background: #f7b6d2;
+
+            border-radius: 100px 100px 25px 25px;
+        }
+
+
+        .light {
+
+            position: absolute;
+
+            top: 90px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 100px;
+            height: 50px;
+
+            border-radius: 50%;
+
+            background: black;
+
+            transition: 0.5s;
+        }
+
+
+        .stand {
+
+            position: absolute;
+
+            top: 115px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 20px;
+            height: 200px;
+
+            background: #f7b6d2;
+
+            border-radius: 20px;
+        }
+
+
+        .base {
+
+            position: absolute;
+
+            bottom: 0;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 140px;
+            height: 30px;
+
+            background: #f7b6d2;
+
+            border-radius: 30px;
+        }
+
+
+        /* =========================
+           PULL STRING
+        ========================= */
+
+        .string {
+
+            position: absolute;
+
+            right: 15px;
+            top: 90px;
+
+            width: 3px;
+            height: 80px;
+
+            background: #f7b6d2;
+
+            cursor: pointer;
+
+            z-index: 10;
+        }
+
+
+        .handle {
+
+            position: absolute;
+
+            bottom: -12px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            width: 20px;
+            height: 20px;
+
+            background: #c2185b;
+
+            border-radius: 50%;
+        }
+
+
+        /* =========================
+           LIGHT ON
+        ========================= */
+
+        body.on .light {
+
+            background: #ff8fc4;
+
+            box-shadow:
+                0 0 30px #ff8fc4,
+                0 0 80px #ff8fc4,
+                0 0 150px rgba(255, 143, 196, 0.6);
+        }
+
+
+        /* =========================
+           TOPICS
+        ========================= */
+
+        .topic {
+
+            position: absolute;
+
+            width: 115px;
+            height: 115px;
+
+            background: #f7b6d2;
+
+            color: black;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            text-align: center;
+
+            font-weight: bold;
+
+            font-size: 14px;
+
+            line-height: 1.2;
+
+            text-decoration: none;
+
+            opacity: 0;
+
+            transform: scale(0.5);
+
+            transition: 0.5s;
+
+            pointer-events: none;
+
+            z-index: 5;
+        }
+
+
+        body.on .topic {
+
+            opacity: 1;
+
+            transform: scale(1);
+
+            pointer-events: auto;
+        }
+
+
+        .topic:hover {
+
+            background: #c2185b;
+
+            color: white;
+
+            transform: scale(1.1);
+        }
+
+
+        /* =========================
+           TOPIC POSITIONS
+        ========================= */
+
+        .one {
+
+            top: 5%;
+            left: 7%;
+        }
+
+
+        .two {
+
+            top: 4%;
+            left: 25%;
+        }
+
+
+        .three {
+
+            top: 4%;
+            right: 25%;
+        }
+
+
+        .four {
+
+            top: 5%;
+            right: 7%;
+        }
+
+
+        .five {
+
+            top: 28%;
+            left: 2%;
+        }
+
+
+        .six {
+
+            top: 28%;
+            right: 2%;
+        }
+
+
+        .seven {
+
+            top: 55%;
+            left: 3%;
+        }
+
+
+        .eight {
+
+            top: 55%;
+            right: 3%;
+        }
+
+
+        .nine {
+
+            bottom: 5%;
+            left: 7%;
+        }
+
+
+        .ten {
+
+            bottom: 4%;
+            left: 25%;
+        }
+
+
+        .eleven {
+
+            bottom: 4%;
+            right: 25%;
+        }
+
+
+        .twelve {
+
+            bottom: 5%;
+            right: 7%;
+        }
+
+
+        .thirteen {
+
+            top: 43%;
+            left: 13%;
+        }
+
+
+        .fourteen {
+
+            top: 43%;
+            right: 13%;
+        }
+
+
+        .fifteen {
+
+            top: 23%;
+            left: 44%;
+        }
+
+
+        .sixteen {
+
+            bottom: 23%;
+            left: 44%;
+        }
+
+
+        /* =========================
+           HEARTS
+        ========================= */
+
+        .heart {
+
+            position: absolute;
+
+            color: #f7b6d2;
+
+            font-size: 25px;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            z-index: 3;
+        }
+
+
+        body.on .heart {
+
+            opacity: 1;
+
+            animation: float 4s infinite;
+        }
+
+
+        @keyframes float {
+
+            0% {
+
+                transform: translateY(0);
+
+                opacity: 0;
+            }
+
+            30% {
+
+                opacity: 1;
+            }
+
+            100% {
+
+                transform: translateY(-300px);
+
+                opacity: 0;
+            }
+        }
+
+
+        .h1 {
+
+            left: 45%;
+            top: 55%;
+        }
+
+
+        .h2 {
+
+            left: 50%;
+            top: 55%;
+
+            animation-delay: 1s !important;
+        }
+
+
+        .h3 {
+
+            left: 55%;
+            top: 55%;
+
+            animation-delay: 2s !important;
+        }
+
+
+        /* =========================
+           BACK BUTTON
+        ========================= */
+
+        .back {
+
+            position: absolute;
+
+            bottom: 25px;
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            padding: 14px 30px;
+
+            background: #f7b6d2;
+
+            color: black;
+
+            text-decoration: none;
+
+            border-radius: 50px;
+
+            font-weight: bold;
+
+            transition: 0.3s;
+
+            z-index: 20;
+        }
+
+
+        .back:hover {
+
+            background: #c2185b;
+
+            color: white;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .topic {
+
+                width: 85px;
+                height: 85px;
+
+                font-size: 11px;
+            }
+
+
+            .one {
+                top: 3%;
+                left: 2%;
+            }
+
+            .two {
+                top: 3%;
+                left: 26%;
+            }
+
+            .three {
+                top: 3%;
+                right: 26%;
+            }
+
+            .four {
+                top: 3%;
+                right: 2%;
+            }
+
+            .five {
+                top: 22%;
+                left: 1%;
+            }
+
+            .six {
+                top: 22%;
+                right: 1%;
+            }
+
+            .seven {
+                top: 43%;
+                left: 1%;
+            }
+
+            .eight {
+                top: 43%;
+                right: 1%;
+            }
+
+            .nine {
+                bottom: 10%;
+                left: 2%;
+            }
+
+            .ten {
+                bottom: 5%;
+                left: 27%;
+            }
+
+            .eleven {
+                bottom: 5%;
+                right: 27%;
+            }
+
+            .twelve {
+                bottom: 10%;
+                right: 2%;
+            }
+
+            .thirteen {
+                display: none;
+            }
+
+            .fourteen {
+                display: none;
+            }
+
+            .fifteen {
+                display: none;
+            }
+
+            .sixteen {
+                display: none;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =========================
+         HEARTS
+    ========================= -->
+
+    <div class="heart h1">♥</div>
+
+    <div class="heart h2">♥</div>
+
+    <div class="heart h3">♥</div>
+
+
+    <!-- =========================
+         RESEARCH TOPICS
+    ========================= -->
+
+    <a href="#" class="topic one">
+        Lucid<br>Dreaming
+    </a>
+
+
+    <a href="#" class="topic two">
+        Love
+    </a>
+
+
+    <a href="#" class="topic three">
+        Artificial<br>Intelligence
+    </a>
+
+
+    <a href="#" class="topic four">
+        Traveling
+    </a>
+
+
+    <a href="#" class="topic five">
+        Energy
+    </a>
+
+
+    <a href="#" class="topic six">
+        Boxing
+    </a>
+
+
+    <a href="#" class="topic seven">
+        Cooking
+    </a>
+
+
+    <a href="#" class="topic eight">
+        Books
+    </a>
+
+
+    <a href="#" class="topic nine">
+        Thoughts
+    </a>
+
+
+    <a href="#" class="topic ten">
+        Languages
+    </a>
+
+
+    <a href="#" class="topic eleven">
+        Psychology
+    </a>
+
+
+    <a href="#" class="topic twelve">
+        Music
+    </a>
+
+
+    <a href="#" class="topic thirteen">
+        Podcast
+    </a>
+
+
+    <a href="#" class="topic fourteen">
+        Souls
+    </a>
+
+    <!-- =========================
+         LAMP
+    ========================= -->
+
+    <div class="lamp">
+
+        <div class="shade"></div>
+
+        <div class="light"></div>
+
+        <div class="stand"></div>
+
+        <div class="base"></div>
+
+
+        <div class="string" onclick="turnOn()">
+
+            <div class="handle"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         BACK
+    ========================= -->
+
+    <a href="index.html" class="back">
+        ← Back
+    </a>
+
+
+    <script>
+
+        function turnOn() {
+
+            document.body.classList.toggle("on");
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
