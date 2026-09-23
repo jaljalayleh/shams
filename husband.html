@@ -1,0 +1,1682 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>For You ♡</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+
+        body {
+            min-height: 100vh;
+
+            background: #000;
+
+            color: white;
+
+            font-family: Arial, sans-serif;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =========================
+           PASSWORD SCREEN
+        ========================= */
+
+        #password-screen {
+
+            position: fixed;
+
+            inset: 0;
+
+            background: #000;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            z-index: 100;
+        }
+
+
+        .password-box {
+
+            width: 360px;
+
+            max-width: 90%;
+
+            padding: 40px 30px;
+
+            background: #f7b6d2;
+
+            color: #000;
+
+            border-radius: 28px;
+
+            text-align: center;
+
+            box-shadow:
+                0 0 50px rgba(247, 182, 210, 0.25);
+        }
+
+
+        .password-heart {
+
+            font-size: 55px;
+
+            color: #c2185b;
+
+            margin-bottom: 10px;
+        }
+
+
+        .password-box h1 {
+
+            font-family: Georgia, serif;
+
+            font-size: 30px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .password-box p {
+
+            font-size: 14px;
+
+            line-height: 1.5;
+
+            margin-bottom: 25px;
+        }
+
+
+        #password-input {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: 2px solid transparent;
+
+            border-radius: 30px;
+
+            outline: none;
+
+            text-align: center;
+
+            font-size: 18px;
+
+            letter-spacing: 5px;
+        }
+
+
+        #password-input:focus {
+
+            border-color: #c2185b;
+        }
+
+
+        .password-button {
+
+            margin-top: 15px;
+
+            padding: 13px 30px;
+
+            border: none;
+
+            border-radius: 30px;
+
+            background: #c2185b;
+
+            color: white;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .password-button:hover {
+
+            background: #000;
+
+            transform: scale(1.05);
+        }
+
+
+        #password-error {
+
+            color: #c2185b;
+
+            font-size: 13px;
+
+            margin-top: 15px;
+
+            min-height: 18px;
+        }
+
+
+        /* =========================
+           MAIN WEBSITE
+        ========================= */
+
+        #main-page {
+
+            display: none;
+
+            min-height: 100vh;
+
+            padding: 60px 30px 100px;
+
+            text-align: center;
+        }
+
+
+        #main-page.show {
+
+            display: block;
+        }
+
+
+        .welcome-heart {
+
+            font-size: 55px;
+
+            color: #f7b6d2;
+
+            margin-bottom: 10px;
+        }
+
+
+        .main-title {
+
+            font-family: Georgia, serif;
+
+            font-size: 42px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .main-subtitle {
+
+            color: #aaa;
+
+            margin-bottom: 55px;
+
+            font-size: 15px;
+        }
+
+
+        /* =========================
+           DOORS
+        ========================= */
+
+        .doors {
+
+            max-width: 1000px;
+
+            margin: 0 auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 30px;
+        }
+
+
+        .door {
+
+            height: 360px;
+
+            background: #f7b6d2;
+
+            border-radius: 18px;
+
+            position: relative;
+
+            cursor: pointer;
+
+            transition: 0.35s ease;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            align-items: center;
+
+            color: #000;
+
+            box-shadow:
+                0 0 30px rgba(247, 182, 210, 0.12);
+        }
+
+
+        .door:hover {
+
+            transform:
+                translateY(-10px)
+                scale(1.02);
+
+            background: #c2185b;
+
+            color: white;
+
+            box-shadow:
+                0 0 40px rgba(247, 182, 210, 0.3);
+        }
+
+
+        .door-knob {
+
+            position: absolute;
+
+            right: 35px;
+
+            top: 50%;
+
+            width: 14px;
+
+            height: 14px;
+
+            background: #000;
+
+            border-radius: 50%;
+        }
+
+
+        .door-number {
+
+            font-family: Georgia, serif;
+
+            font-size: 50px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .door-icon {
+
+            font-size: 50px;
+
+            margin-bottom: 20px;
+        }
+
+
+        .door h2 {
+
+            font-family: Georgia, serif;
+
+            font-size: 23px;
+
+            padding: 0 20px;
+        }
+
+
+        .door p {
+
+            font-size: 13px;
+
+            margin-top: 10px;
+
+            padding: 0 25px;
+
+            line-height: 1.5;
+        }
+
+
+        /* =========================
+           CONTENT SECTION
+        ========================= */
+
+        .section {
+
+            display: none;
+
+            max-width: 850px;
+
+            margin: 0 auto;
+
+            text-align: left;
+        }
+
+
+        .section.active {
+
+            display: block;
+        }
+
+
+        .section-header {
+
+            text-align: center;
+
+            margin-bottom: 35px;
+        }
+
+
+        .section-header h2 {
+
+            font-family: Georgia, serif;
+
+            font-size: 36px;
+
+            color: #f7b6d2;
+
+            margin-bottom: 8px;
+        }
+
+
+        .section-header p {
+
+            color: #999;
+
+            font-size: 14px;
+        }
+
+
+        /* =========================
+           ADD BUTTON
+        ========================= */
+
+        .add-button {
+
+            display: block;
+
+            margin: 0 auto 30px;
+
+            padding: 12px 25px;
+
+            border: none;
+
+            border-radius: 30px;
+
+            background: #f7b6d2;
+
+            color: #000;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .add-button:hover {
+
+            background: #c2185b;
+
+            color: white;
+
+            transform: scale(1.05);
+        }
+
+
+        /* =========================
+           ENTRY CARDS
+        ========================= */
+
+        .entries {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 18px;
+        }
+
+
+        .entry {
+
+            background: #111;
+
+            border: 1px solid #333;
+
+            border-left: 4px solid #f7b6d2;
+
+            border-radius: 15px;
+
+            padding: 22px;
+
+            position: relative;
+        }
+
+
+        .entry h3 {
+
+            color: #f7b6d2;
+
+            font-family: Georgia, serif;
+
+            font-size: 21px;
+
+            margin-bottom: 10px;
+        }
+
+
+        .entry p {
+
+            color: #ddd;
+
+            line-height: 1.7;
+
+            white-space: pre-wrap;
+        }
+
+
+        .entry-date {
+
+            color: #777;
+
+            font-size: 11px;
+
+            margin-top: 15px;
+        }
+
+
+        .entry-actions {
+
+            display: flex;
+
+            gap: 8px;
+
+            margin-top: 18px;
+        }
+
+
+        .edit-button,
+        .delete-button {
+
+            border: none;
+
+            border-radius: 20px;
+
+            padding: 7px 14px;
+
+            cursor: pointer;
+
+            font-size: 12px;
+
+            transition: 0.2s;
+        }
+
+
+        .edit-button {
+
+            background: #f7b6d2;
+
+            color: #000;
+        }
+
+
+        .delete-button {
+
+            background: #333;
+
+            color: white;
+        }
+
+
+        .edit-button:hover {
+
+            background: #c2185b;
+
+            color: white;
+        }
+
+
+        .delete-button:hover {
+
+            background: #c2185b;
+        }
+
+
+        /* =========================
+           EMPTY MESSAGE
+        ========================= */
+
+        .empty {
+
+            text-align: center;
+
+            color: #777;
+
+            padding: 50px 20px;
+
+            border: 1px dashed #444;
+
+            border-radius: 18px;
+        }
+
+
+        /* =========================
+           MODAL
+        ========================= */
+
+        .modal {
+
+            position: fixed;
+
+            inset: 0;
+
+            background: rgba(0, 0, 0, 0.8);
+
+            display: none;
+
+            justify-content: center;
+
+            align-items: center;
+
+            padding: 20px;
+
+            z-index: 200;
+        }
+
+
+        .modal.show {
+
+            display: flex;
+        }
+
+
+        .modal-box {
+
+            width: 500px;
+
+            max-width: 100%;
+
+            background: #f7b6d2;
+
+            color: #000;
+
+            border-radius: 25px;
+
+            padding: 30px;
+        }
+
+
+        .modal-box h2 {
+
+            font-family: Georgia, serif;
+
+            margin-bottom: 20px;
+
+            text-align: center;
+        }
+
+
+        .modal-box label {
+
+            display: block;
+
+            font-size: 13px;
+
+            font-weight: bold;
+
+            margin-bottom: 6px;
+
+            margin-top: 15px;
+        }
+
+
+        .modal-box input,
+        .modal-box textarea {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: none;
+
+            border-radius: 12px;
+
+            outline: none;
+
+            font-family: Arial, sans-serif;
+
+            font-size: 14px;
+        }
+
+
+        .modal-box textarea {
+
+            min-height: 160px;
+
+            resize: vertical;
+        }
+
+
+        .modal-buttons {
+
+            display: flex;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            margin-top: 20px;
+        }
+
+
+        .save-button,
+        .cancel-button {
+
+            padding: 11px 22px;
+
+            border: none;
+
+            border-radius: 25px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+        }
+
+
+        .save-button {
+
+            background: #c2185b;
+
+            color: white;
+        }
+
+
+        .cancel-button {
+
+            background: #000;
+
+            color: white;
+        }
+
+
+        .save-button:hover,
+        .cancel-button:hover {
+
+            transform: scale(1.05);
+        }
+
+
+        /* =========================
+           BACK BUTTON
+        ========================= */
+
+        .back-button {
+
+            display: block;
+
+            margin: 40px auto 0;
+
+            padding: 12px 25px;
+
+            background: #f7b6d2;
+
+            color: #000;
+
+            border: none;
+
+            border-radius: 30px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+        }
+
+
+        .back-button:hover {
+
+            background: #c2185b;
+
+            color: white;
+
+            transform: scale(1.05);
+        }
+
+
+        /* =========================
+           HOME BUTTON
+        ========================= */
+
+        .home-button {
+
+            position: fixed;
+
+            bottom: 20px;
+
+            left: 20px;
+
+            padding: 10px 20px;
+
+            background: #f7b6d2;
+
+            color: #000;
+
+            border-radius: 30px;
+
+            text-decoration: none;
+
+            font-weight: bold;
+
+            z-index: 50;
+
+            transition: 0.3s;
+        }
+
+
+        .home-button:hover {
+
+            background: #c2185b;
+
+            color: white;
+        }
+
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .doors {
+
+                grid-template-columns: 1fr;
+
+                max-width: 400px;
+            }
+
+
+            .door {
+
+                height: 280px;
+            }
+
+
+            .main-title {
+
+                font-size: 34px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- =====================================================
+         PASSWORD SCREEN
+    ====================================================== -->
+
+    <div id="password-screen">
+
+        <div class="password-box">
+
+            <div class="password-heart">
+                ♡
+            </div>
+
+            <h1>
+                A little secret...
+            </h1>
+
+            <p>
+                If you found your way here,
+                you probably know the password. 🩷
+            </p>
+
+            <input
+                type="password"
+                id="password-input"
+                placeholder="Password"
+                maxlength="6"
+                onkeydown="handlePasswordKey(event)"
+            >
+
+            <br>
+
+            <button
+                class="password-button"
+                onclick="checkPassword()">
+
+                Enter ♡
+
+            </button>
+
+            <div id="password-error"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         MAIN PAGE
+    ====================================================== -->
+
+    <main id="main-page">
+
+
+        <div class="welcome-heart">
+            ♡
+        </div>
+
+
+        <h1 class="main-title">
+            Welcome to my little secret
+        </h1>
+
+
+        <p class="main-subtitle">
+            There are a few things I wanted you to find.
+        </p>
+
+
+        <!-- =================================================
+             THREE DOORS
+        ================================================== -->
+
+        <div class="doors">
+
+
+            <!-- DOOR 1 -->
+
+            <div
+                class="door"
+                onclick="openSection('messages')">
+
+                <div class="door-number">
+                    I
+                </div>
+
+                <div class="door-icon">
+                    💌
+                </div>
+
+                <h2>
+                    Cute Messages
+                </h2>
+
+                <p>
+                    Little things I wanted you to read.
+                </p>
+
+                <div class="door-knob"></div>
+
+            </div>
+
+
+            <!-- DOOR 2 -->
+
+            <div
+                class="door"
+                onclick="openSection('love')">
+
+                <div class="door-number">
+                    II
+                </div>
+
+                <div class="door-icon">
+                    🩷
+                </div>
+
+                <h2>
+                    Things I Love About You
+                </h2>
+
+                <p>
+                    All the little things I notice.
+                </p>
+
+                <div class="door-knob"></div>
+
+            </div>
+
+
+            <!-- DOOR 3 -->
+
+            <div
+                class="door"
+                onclick="openSection('future')">
+
+                <div class="door-number">
+                    III
+                </div>
+
+                <div class="door-icon">
+                    🌍
+                </div>
+
+                <h2>
+                    Things I Want To Do With You
+                </h2>
+
+                <p>
+                    Places to go, things to experience,
+                    memories to make.
+                </p>
+
+                <div class="door-knob"></div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             DOOR 1 CONTENT
+        ================================================== -->
+
+        <section
+            class="section"
+            id="messages">
+
+            <div class="section-header">
+
+                <h2>
+                    Cute Messages 💌
+                </h2>
+
+                <p>
+                    Little pieces of my heart.
+                </p>
+
+            </div>
+
+
+            <button
+                class="add-button"
+                onclick="openAddModal('messages')">
+
+                + Add a message
+
+            </button>
+
+
+            <div
+                class="entries"
+                id="messages-entries">
+            </div>
+
+
+            <button
+                class="back-button"
+                onclick="backToDoors()">
+
+                ← Back to the doors
+
+            </button>
+
+        </section>
+
+
+        <!-- =================================================
+             DOOR 2 CONTENT
+        ================================================== -->
+
+        <section
+            class="section"
+            id="love">
+
+            <div class="section-header">
+
+                <h2>
+                    Things I Love About You 🩷
+                </h2>
+
+                <p>
+                    The little things that make you you.
+                </p>
+
+            </div>
+
+
+            <button
+                class="add-button"
+                onclick="openAddModal('love')">
+
+                + Add something
+
+            </button>
+
+
+            <div
+                class="entries"
+                id="love-entries">
+            </div>
+
+
+            <button
+                class="back-button"
+                onclick="backToDoors()">
+
+                ← Back to the doors
+
+            </button>
+
+        </section>
+
+
+        <!-- =================================================
+             DOOR 3 CONTENT
+        ================================================== -->
+
+        <section
+            class="section"
+            id="future">
+
+            <div class="section-header">
+
+                <h2>
+                    Things I Want To Do With You 🌍
+                </h2>
+
+                <p>
+                    Places, dreams and memories waiting for us.
+                </p>
+
+            </div>
+
+
+            <button
+                class="add-button"
+                onclick="openAddModal('future')">
+
+                + Add something
+
+            </button>
+
+
+            <div
+                class="entries"
+                id="future-entries">
+            </div>
+
+
+            <button
+                class="back-button"
+                onclick="backToDoors()">
+
+                ← Back to the doors
+
+            </button>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         ADD / EDIT MODAL
+    ====================================================== -->
+
+    <div
+        class="modal"
+        id="entry-modal">
+
+        <div class="modal-box">
+
+            <h2 id="modal-title">
+                Add something ♡
+            </h2>
+
+
+            <label>
+                Title
+            </label>
+
+            <input
+                type="text"
+                id="entry-title"
+                placeholder="Give it a little title..."
+            >
+
+
+            <label>
+                Your message
+            </label>
+
+            <textarea
+                id="entry-text"
+                placeholder="Write whatever you want here..."
+            ></textarea>
+
+
+            <div class="modal-buttons">
+
+                <button
+                    class="save-button"
+                    onclick="saveEntry()">
+
+                    Save ♡
+
+                </button>
+
+
+                <button
+                    class="cancel-button"
+                    onclick="closeModal()">
+
+                    Cancel
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         HOME
+    ====================================================== -->
+
+    <a
+        href="index.html"
+        class="home-button">
+
+        ← Home
+
+    </a>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+
+    <script>
+
+
+        /* =========================
+           PASSWORD
+        ========================= */
+
+        const correctPassword = "070844";
+
+
+        function checkPassword() {
+
+            const input =
+                document.getElementById("password-input").value;
+
+            const error =
+                document.getElementById("password-error");
+
+
+            if (input === correctPassword) {
+
+                document
+                    .getElementById("password-screen")
+                    .style.display = "none";
+
+                document
+                    .getElementById("main-page")
+                    .classList.add("show");
+
+            } else {
+
+                error.textContent =
+                    "That's not the password ♡ Try again.";
+
+                document
+                    .getElementById("password-input")
+                    .value = "";
+
+            }
+
+        }
+
+
+        function handlePasswordKey(event) {
+
+            if (event.key === "Enter") {
+
+                checkPassword();
+
+            }
+
+        }
+
+
+        /* =========================
+           DATA
+        ========================= */
+
+        let entries = {
+
+            messages: [
+                {
+                    title: "A little hello ♡",
+                    text: "This is where your first message can go."
+                }
+            ],
+
+            love: [
+                {
+                    title: "Something I love",
+                    text: "This is where you can write something you love about him."
+                }
+            ],
+
+            future: [
+                {
+                    title: "Somewhere I want to go",
+                    text: "This is where you can write a place or experience you want to share."
+                }
+            ]
+
+        };
+
+
+        /* =========================
+           CURRENT EDIT
+        ========================= */
+
+        let currentCategory = null;
+
+        let editingIndex = null;
+
+
+        /* =========================
+           OPEN DOOR
+        ========================= */
+
+        function openSection(category) {
+
+            document
+                .querySelector(".doors")
+                .style.display = "none";
+
+
+            document
+                .querySelectorAll(".section")
+                .forEach(section => {
+
+                    section.classList.remove("active");
+
+                });
+
+
+            document
+                .getElementById(category)
+                .classList.add("active");
+
+
+            renderEntries(category);
+
+        }
+
+
+        /* =========================
+           BACK TO DOORS
+        ========================= */
+
+        function backToDoors() {
+
+            document
+                .querySelectorAll(".section")
+                .forEach(section => {
+
+                    section.classList.remove("active");
+
+                });
+
+
+            document
+                .querySelector(".doors")
+                .style.display = "grid";
+
+        }
+
+
+        /* =========================
+           RENDER ENTRIES
+        ========================= */
+
+        function renderEntries(category) {
+
+            const container =
+                document.getElementById(
+                    category + "-entries"
+                );
+
+
+            container.innerHTML = "";
+
+
+            if (entries[category].length === 0) {
+
+                container.innerHTML = `
+                    <div class="empty">
+                        Nothing here yet ♡
+                    </div>
+                `;
+
+                return;
+
+            }
+
+
+            entries[category].forEach(
+                (entry, index) => {
+
+                    const card =
+                        document.createElement("div");
+
+                    card.className = "entry";
+
+
+                    card.innerHTML = `
+
+                        <h3>
+                            ${escapeHTML(entry.title)}
+                        </h3>
+
+                        <p>
+                            ${escapeHTML(entry.text)}
+                        </p>
+
+                        <div class="entry-actions">
+
+                            <button
+                                class="edit-button"
+                                onclick="editEntry('${category}', ${index})">
+
+                                Edit
+
+                            </button>
+
+                            <button
+                                class="delete-button"
+                                onclick="deleteEntry('${category}', ${index})">
+
+                                Delete
+
+                            </button>
+
+                        </div>
+
+                    `;
+
+
+                    container.appendChild(card);
+
+                }
+            );
+
+        }
+
+
+        /* =========================
+           ADD ENTRY
+        ========================= */
+
+        function openAddModal(category) {
+
+            currentCategory = category;
+
+            editingIndex = null;
+
+
+            document
+                .getElementById("modal-title")
+                .textContent =
+                "Add something ♡";
+
+
+            document
+                .getElementById("entry-title")
+                .value = "";
+
+
+            document
+                .getElementById("entry-text")
+                .value = "";
+
+
+            document
+                .getElementById("entry-modal")
+                .classList.add("show");
+
+        }
+
+
+        /* =========================
+           EDIT ENTRY
+        ========================= */
+
+        function editEntry(category, index) {
+
+            currentCategory = category;
+
+            editingIndex = index;
+
+
+            const entry =
+                entries[category][index];
+
+
+            document
+                .getElementById("modal-title")
+                .textContent =
+                "Edit this ♡";
+
+
+            document
+                .getElementById("entry-title")
+                .value =
+                entry.title;
+
+
+            document
+                .getElementById("entry-text")
+                .value =
+                entry.text;
+
+
+            document
+                .getElementById("entry-modal")
+                .classList.add("show");
+
+        }
+
+
+        /* =========================
+           SAVE ENTRY
+        ========================= */
+
+        function saveEntry() {
+
+            const title =
+                document
+                    .getElementById("entry-title")
+                    .value
+                    .trim();
+
+
+            const text =
+                document
+                    .getElementById("entry-text")
+                    .value
+                    .trim();
+
+
+            if (!title || !text) {
+
+                alert(
+                    "Please write something first ♡"
+                );
+
+                return;
+
+            }
+
+
+            const newEntry = {
+
+                title: title,
+
+                text: text
+
+            };
+
+
+            if (editingIndex === null) {
+
+                entries[currentCategory]
+                    .push(newEntry);
+
+            } else {
+
+                entries[currentCategory]
+                    [editingIndex] = newEntry;
+
+            }
+
+
+            saveToBrowser();
+
+
+            closeModal();
+
+
+            renderEntries(currentCategory);
+
+        }
+
+
+        /* =========================
+           DELETE ENTRY
+        ========================= */
+
+        function deleteEntry(category, index) {
+
+            const answer =
+                confirm(
+                    "Delete this entry?"
+                );
+
+
+            if (!answer) {
+
+                return;
+
+            }
+
+
+            entries[category]
+                .splice(index, 1);
+
+
+            saveToBrowser();
+
+
+            renderEntries(category);
+
+        }
+
+
+        /* =========================
+           CLOSE MODAL
+        ========================= */
+
+        function closeModal() {
+
+            document
+                .getElementById("entry-modal")
+                .classList.remove("show");
+
+        }
+
+
+        /* =========================
+           SAVE TO BROWSER
+        ========================= */
+
+        function saveToBrowser() {
+
+            localStorage.setItem(
+                "husbandWebsiteEntries",
+                JSON.stringify(entries)
+            );
+
+        }
+
+
+        /* =========================
+           LOAD FROM BROWSER
+        ========================= */
+
+        function loadFromBrowser() {
+
+            const saved =
+                localStorage.getItem(
+                    "husbandWebsiteEntries"
+                );
+
+
+            if (saved) {
+
+                entries =
+                    JSON.parse(saved);
+
+            }
+
+        }
+
+
+        /* =========================
+           SECURITY
+        ========================= */
+
+        function escapeHTML(text) {
+
+            return text
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+
+        }
+
+
+        /* =========================
+           START
+        ========================= */
+
+        loadFromBrowser();
+
+
+    </script>
+
+
+</body>
+
+</html>
